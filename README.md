@@ -19,12 +19,14 @@ Dans `chrome://extensions`, activez **Mode développeur**, cliquez sur **Charger
 
 ## Utiliser
 
-1. Cliquez sur l’extension ou appuyez sur **Alt+Maj+C**.
+1. Cliquez sur l’extension ou appuyez sur **Alt+C**.
 2. Sélectionnez l’élément principal et rédigez votre demande.
 3. Ajoutez des éléments de référence si nécessaire.
 4. Cliquez sur **Copier le contexte pour une IA**, puis collez-le dans votre assistant.
 
 **Changer de cible** efface les éléments en conservant la demande. Les copies du contenu, du HTML et du sélecteur concernent uniquement le principal. **Échap** annule un ajout ou ferme le panneau.
+
+Extension déjà installée : si Chrome conserve l’ancien raccourci, attribuez **Alt+C** dans `chrome://extensions/shortcuts`.
 
 ## À savoir
 
