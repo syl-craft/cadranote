@@ -1,0 +1,38 @@
+:root {
+  color-scheme: dark;
+  font:
+    16px/1.65 system-ui,
+    sans-serif;
+  background: #0b1628;
+  color: #f1f5fc;
+}
+body {
+  margin: 0;
+  padding: 64px 24px;
+  border-top: 4px solid #72b5ff;
+}
+main {
+  max-width: 680px;
+  margin: auto;
+}
+.eyebrow {
+  color: #72b5ff;
+  letter-spacing: 0.16em;
+  font-size: 12px;
+  font-weight: 700;
+}
+h1 {
+  line-height: 1.2;
+  font:
+    700 36px/1.2 system-ui,
+    sans-serif;
+}
+p {
+  color: #b2c1d6;
+}
+code {
+  color: #72b5ff;
+  background: #1d2c43;
+  padding: 3px 6px;
+  border-radius: 2px;
+}

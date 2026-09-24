@@ -1,0 +1,6 @@
+node_modules/
+.test-build/
+content.js
+background.js
+package-lock.json
+*.zip

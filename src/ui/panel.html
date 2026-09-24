@@ -1,0 +1,126 @@
+<div class="box" hidden></div>
+<div class="tag" hidden></div>
+<div id="attachment-highlights" aria-hidden="true"></div>
+<section class="panel" role="dialog" aria-label="Cadranote">
+  <header>
+    <span class="logo" aria-hidden="true"></span>
+    <div>
+      <h1>Cadranote</h1>
+      <div class="subtitle">De la page à la consigne.</div>
+    </div>
+    <button
+      class="move"
+      title="Déplacer le panneau en haut / en bas"
+      aria-label="Déplacer le panneau en haut ou en bas"
+    >
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 4v16M8 8l4-4 4 4M8 16l4 4 4-4" />
+      </svg>
+    </button>
+    <button class="close" title="Fermer (Échap)" aria-label="Fermer">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m6 6 12 12M18 6 6 18" />
+      </svg>
+    </button>
+  </header>
+  <div class="body">
+    <div class="status" role="status">
+      <span class="dot"></span><span id="status">Sélection en cours</span>
+    </div>
+    <p id="hint" class="hint">
+      Survolez la page, puis cliquez sur l’élément à cibler. Échap pour quitter.
+    </p>
+    <div id="result" hidden>
+      <div class="primary-heading">
+        <div class="label section-label"><span class="step">01</span> Élément principal</div>
+        <div class="meta" id="meta"></div>
+      </div>
+      <div class="label" id="selector-label">Sélecteur CSS unique</div>
+      <pre id="selector"></pre>
+      <details>
+        <summary>Chemin et extrait HTML du principal</summary>
+        <pre id="path"></pre>
+        <pre id="html"></pre>
+      </details>
+      <details id="inspectors">
+        <summary>Composants et styles</summary>
+        <p class="action-help">
+          Du composant le plus proche vers ses parents. Ces indices sont inclus dans la copie pour
+          l’IA. En production, les noms et fichiers peuvent être absents ou minifiés.
+        </p>
+        <pre id="inspection" aria-live="polite"></pre>
+      </details>
+    </div>
+    <div id="instruction-area">
+      <label class="section-label" for="instruction"
+        ><span class="step">02</span> Votre demande <span class="optional">facultatif</span></label
+      >
+      <textarea
+        id="instruction"
+        placeholder="Ex. : donner au bouton principal le même style que l’élément supplémentaire 1."
+      ></textarea>
+    </div>
+    <section id="supplement-actions" hidden aria-label="Éléments supplémentaires">
+      <details id="attachments" hidden>
+        <summary>
+          <span class="step">03</span> Éléments supplémentaires <span id="attachment-count"></span>
+        </summary>
+        <ul id="attachment-list" aria-label="Éléments supplémentaires"></ul>
+        <p id="empty-supplements" class="action-help">
+          Ajoutez un élément de référence pour préciser votre demande.
+        </p>
+        <div class="row">
+          <button id="copy-all">Copier la liste pour l’IA</button
+          ><button id="clear-all">Vider la liste</button>
+        </div>
+      </details>
+      <div class="row add-actions">
+        <button id="attach">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          Ajouter un élément
+        </button>
+        <button id="cancel-add" hidden>Annuler l’ajout</button>
+      </div>
+    </section>
+    <details id="principal-actions" hidden>
+      <summary>Outils de l’élément principal</summary>
+      <div class="row">
+        <button id="copy-content" title="Copier le texte de l’élément principal">
+          Copier le contenu</button
+        ><button id="copy-html">Copier l’extrait HTML</button>
+      </div>
+      <div class="row">
+        <button id="copy-selector">Copier le sélecteur</button
+        ><button id="parent">Élément parent</button>
+      </div>
+      <div class="row">
+        <button id="restart" aria-describedby="restart-help">Changer de cible</button>
+      </div>
+      <p id="restart-help" class="action-help">
+        Efface le principal et toute la liste pour choisir une nouvelle cible. Le texte de votre
+        demande est conservé.
+      </p>
+    </details>
+  </div>
+  <footer class="panel-footer">
+    <button
+      id="copy-ai"
+      class="primary"
+      hidden
+      title="Copier le principal, la demande et les éléments supplémentaires"
+    >
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="8" y="8" width="12" height="12" rx="2" />
+        <path d="M16 8V4H4v12h4" />
+      </svg>
+      Copier le contexte pour une IA
+    </button>
+    <div class="feedback" role="status" aria-live="polite"></div>
+    <div id="copy-fallback"></div>
+    <div class="footer">
+      <span>Copie locale · Aucun envoi</span><span><kbd>Échap</kbd> fermer</span>
+    </div>
+  </footer>
+</section>

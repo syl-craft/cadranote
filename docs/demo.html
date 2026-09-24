@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Atelier — Nos formules</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f6f5fa;
+        color: #242237;
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+      }
+      main {
+        width: 950px;
+        padding: 48px;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 32px;
+        border-bottom: 1px solid #dedbe8;
+      }
+      .brand {
+        font-size: 24px;
+        font-weight: 750;
+        letter-spacing: -1px;
+      }
+      .demo {
+        font-size: 12px;
+        color: #716985;
+      }
+      .eyebrow {
+        margin: 56px 0 12px;
+        color: #7461e8;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 46px;
+        line-height: 1.15;
+        letter-spacing: -2px;
+      }
+      .intro {
+        color: #716985;
+        max-width: 550px;
+        margin: 20px 0 36px;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      article {
+        background: white;
+        padding: 24px;
+        border: 1px solid #dedbe8;
+        border-radius: 18px;
+      }
+      h2 {
+        margin: 0 0 8px;
+        font-size: 19px;
+      }
+      article p {
+        color: #716985;
+        font-size: 13px;
+      }
+      .price {
+        margin: 28px 0;
+        font-size: 36px;
+        font-weight: 700;
+        color: #242237;
+      }
+      .price span {
+        font-size: 13px;
+        font-weight: 400;
+        color: #716985;
+      }
+      ul {
+        min-height: 90px;
+        padding: 0;
+        list-style: none;
+        font-size: 13px;
+        line-height: 2;
+      }
+      li::before {
+        content: "✓";
+        margin-right: 8px;
+        color: #288560;
+      }
+      button {
+        width: 100%;
+        padding: 12px 8px;
+        border: 0;
+        border-radius: 9px;
+        background: #7461e8;
+        color: white;
+        font:
+          600 13px system-ui,
+          sans-serif;
+        cursor: pointer;
+      }
+      .secondary {
+        color: #5e4bc8;
+        background: #eeeafa;
+      }
+      .note {
+        margin-top: 32px;
+        color: #716985;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <span class="brand">atelier.</span
+        ><span class="demo">Page de démonstration · Cadranote</span>
+      </nav>
+      <p class="eyebrow">UN ESPACE POUR VOS PROJETS</p>
+      <h1>À chaque équipe<br />sa façon de créer.</h1>
+      <p class="intro">
+        Choisissez la formule qui accompagne votre prochain projet. Des outils simples, de la
+        première idée à la livraison.
+      </p>
+      <section class="cards" aria-label="Nos formules">
+        <article>
+          <h2>Essentiel</h2>
+          <p>Pour lancer vos premières idées.</p>
+          <p class="price">12 € <span>/ mois</span></p>
+          <ul>
+            <li>3 projets actifs</li>
+            <li>Un espace personnel</li>
+            <li>Export des fichiers</li>
+          </ul>
+          <button data-testid="choose-essential">Choisir Essentiel</button>
+        </article>
+        <article>
+          <h2>Équipe</h2>
+          <p>Pour avancer à plusieurs.</p>
+          <p class="price">29 € <span>/ mois</span></p>
+          <ul>
+            <li>Projets illimités</li>
+            <li>5 collaborateurs</li>
+            <li>Commentaires partagés</li>
+          </ul>
+          <button class="secondary" data-testid="choose-team">Choisir Équipe</button>
+        </article>
+        <article>
+          <h2>Studio</h2>
+          <p>Pour les projets ambitieux.</p>
+          <p class="price">59 € <span>/ mois</span></p>
+          <ul>
+            <li>Projets illimités</li>
+            <li>Collaborateurs illimités</li>
+            <li>Support prioritaire</li>
+          </ul>
+          <button class="secondary" data-testid="choose-studio">Choisir Studio</button>
+        </article>
+      </section>
+      <p class="note">Sans engagement. Changez de formule quand vous le souhaitez.</p>
+    </main>
+  </body>
+</html>

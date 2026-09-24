@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="cadranote-mark" x1="18" y1="17" x2="44" y2="49" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#83c2ff"/>
+      <stop offset="1" stop-color="#2784ff"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="#0b1628" stroke="#34465e" stroke-width="2"/>
+  <path d="M43 18H29C21 18 17 23 17 32C17 41 21 46 29 46H43" stroke="url(#cadranote-mark)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M31 28H48M31 36H43" stroke="#f1f5fc" stroke-width="4" stroke-linecap="round"/>
+</svg>

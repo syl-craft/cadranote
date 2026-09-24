@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Boutique — démonstration Cadranote</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 64px;
+      background: #f5f4fa;
+      color: #22233b;
+      font: 16px/1.5 system-ui;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+    }
+    .eyebrow {
+      color: #7762bf;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+    }
+    h1 {
+      font-size: 42px;
+      margin: 12px 0;
+    }
+    p {
+      color: #707187;
+    }
+    .cards {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    article {
+      width: 260px;
+      padding: 24px;
+      background: white;
+      border: 1px solid #e1dfec;
+      border-radius: 16px;
+    }
+    button {
+      background: #7762bf;
+      color: white;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .price {
+      font-size: 28px;
+      color: #22233b;
+    }
+    aside {
+      margin-top: 32px;
+      padding: 20px;
+      border: 1px dashed #bdb6d5;
+    }
+  </style>
+  <main id="app">
+    <span class="eyebrow">PAGE DE DÉMONSTRATION</span>
+    <h1>Choisissez votre formule.</h1>
+    <p>Utilisez Cadranote pour sélectionner un bouton, un titre ou une carte.</p>
+    <div class="cards">
+      <article>
+        <h2>Essentiel</h2>
+        <p>Pour démarrer simplement.</p>
+        <p class="price">12 €</p>
+        <button class="buy" data-testid="buy-essential">Choisir Essentiel</button>
+      </article>
+      <article>
+        <h2>Équipe</h2>
+        <p>Pour travailler ensemble.</p>
+        <p class="price">29 €</p>
+        <button class="buy">Choisir Équipe</button>
+      </article>
+      <article>
+        <h2>Entreprise</h2>
+        <p>Pour aller plus loin.</p>
+        <p class="price">59 €</p>
+        <button class="buy">Nous contacter</button>
+      </article>
+    </div>
+    <aside>
+      <strong>Zone Shadow DOM ouverte</strong>
+      <div id="shadow-host"></div>
+    </aside>
+    <div id="edge-cases" hidden>
+      <div id="duplicate"></div>
+      <div id="duplicate"></div>
+      <button id="weird:id.1">Échappement</button
+      ><input type="password" value="secret-test" /><textarea>secret-textarea</textarea>
+    </div>
+    <p id="click-count">Aucun clic applicatif.</p>
+  </main>
+  <script>
+    window.applicationClicks = 0;
+    document.querySelectorAll("button.buy").forEach((button) =>
+      button.addEventListener("click", () => {
+        window.applicationClicks++;
+        document.querySelector("#click-count").textContent =
+          window.applicationClicks + " clic(s) applicatif(s).";
+      }),
+    );
+    document.querySelector("#shadow-host").attachShadow({ mode: "open" }).innerHTML =
+      '<button style="margin-top:12px;padding:12px">Bouton dans un composant</button>';
+  </script>
+</html>
