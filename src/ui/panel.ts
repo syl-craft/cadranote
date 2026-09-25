@@ -3,6 +3,7 @@ import type { TargetSnapshot } from "../domain/target";
 import type { CopyKind } from "../export/prepare-copy";
 import { requireElement } from "./query-element";
 import { inspectionText } from "../inspection/model";
+import { installPanelDrag } from "./panel-drag";
 
 export type PanelAction =
   | { type: "request-changed"; instruction: string }
@@ -44,6 +45,7 @@ export class RequestPanel {
     this.copyFallback = requireElement(root, "#copy-fallback", HTMLDivElement);
 
     this.bindActions(onAction);
+    installPanelDrag(this.panel, this.listeners.signal);
     this.containInteractionEvents();
   }
 
@@ -260,6 +262,8 @@ export class RequestPanel {
       "click",
       () => {
         const isAtTop = this.panel.style.top === "20px";
+        this.panel.style.left = "";
+        this.panel.style.right = "";
         this.panel.style.top = isAtTop ? "auto" : "20px";
         this.panel.style.bottom = isAtTop ? "20px" : "auto";
       },
