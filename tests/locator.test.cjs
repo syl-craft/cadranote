@@ -44,6 +44,52 @@ async function setup(t, ui = false) {
   if (ui) await page.addScriptTag({ path: path.join(root, "content.js") });
   return page;
 }
+test("dragging the panel reveals a selectable target and keeps the panel on screen", async (t) => {
+  const page = await setup(t, true);
+  const bounds = () =>
+    page.evaluate(() => {
+      const { x, y, right, bottom } = testUI.querySelector(".panel").getBoundingClientRect();
+      return { x, y, right, bottom };
+    });
+  const initial = await bounds();
+  await page.evaluate(({ x, y }) => {
+    const target = document.createElement("button");
+    target.id = "behind-panel";
+    target.textContent = "Previously hidden";
+    target.style.cssText = `position:fixed;left:${x + 30}px;top:${y + 100}px`;
+    document.body.append(target);
+  }, initial);
+  await page.mouse.move(initial.x + 100, initial.y + 30);
+  await page.mouse.down();
+  await page.mouse.move(150, 100, { steps: 12 });
+  await page.mouse.up();
+  const moved = await bounds();
+  assert.ok(moved.x < initial.x - 500);
+  assert.equal(await page.evaluate(() => testUI.querySelector("#result").hidden), true);
+  await page.locator("#behind-panel").click();
+  assert.match(
+    await page.evaluate(() => testUI.querySelector("#selector").textContent),
+    /behind-panel/,
+  );
+  // The panel grows after selection, but its header stays in the same place.
+  assert.equal((await bounds()).x, moved.x);
+  await page.mouse.move(moved.x + 100, moved.y + 30);
+  await page.mouse.down();
+  await page.mouse.move(1439, 999, { steps: 8 });
+  await page.mouse.up();
+  await page.setViewportSize({ width: 600, height: 500 });
+  await page.waitForFunction(() => {
+    const rect = testUI.querySelector(".panel").getBoundingClientRect();
+    return (
+      rect.left >= 0 && rect.top >= 0 && rect.right <= innerWidth && rect.bottom <= innerHeight
+    );
+  });
+  await page.evaluate(() => testUI.querySelector(".move").click());
+  assert.equal(await page.evaluate(() => testUI.querySelector(".panel").style.left), "");
+  await page.evaluate(() => testUI.querySelector(".close").click());
+  assert.equal(await page.locator("html-locator-overlay").count(), 0);
+});
+
 test("every light DOM selector resolves uniquely, including duplicate and escaped IDs", async (t) => {
   const page = await setup(t);
   const failures = await page.evaluate(() =>

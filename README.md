@@ -26,6 +26,8 @@ Dans `chrome://extensions`, activez **Mode développeur**, cliquez sur **Charger
 
 **Changer de cible** efface les éléments en conservant la demande. Les copies du contenu, du HTML et du sélecteur concernent uniquement le principal. **Échap** annule un ajout ou ferme le panneau.
 
+Pour atteindre un élément masqué par le panneau, faites glisser son en-tête. Le bouton à double flèche permet aussi de le replacer en haut ou en bas à droite.
+
 Extension déjà installée : si Chrome conserve l’ancien raccourci, attribuez **Alt+C** dans `chrome://extensions/shortcuts`.
 
 ## À savoir
