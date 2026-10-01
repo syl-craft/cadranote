@@ -2,53 +2,80 @@
 
 <img src="src/ui/logo.svg" alt="Cadranote" width="64" height="64" />
 
-Sélectionnez des éléments sur une page et copiez leur contexte pour une IA : sélecteurs, HTML, demande et éléments de référence.
+English · [Français](README.fr.md)
 
-![Une cible en bleu et deux références en vert](docs/images/example-cadranote.png)
+Select elements on a web page and copy their context for an AI assistant: selectors, HTML, your request and reference elements.
 
-## Installer
+<img src="https://raw.githubusercontent.com/syl-craft/cadranote-media/main/videos/01-target-en.gif" alt="Demo: Alt+C opens the panel, hovering outlines elements, a click selects the button and shows its unique CSS selector" width="960">
 
-Avec Node.js 22 et Chrome :
+## Install
+
+With Node.js 22 and Chrome:
 
 ```sh
 npm ci
 npm run build
 ```
 
-Dans `chrome://extensions`, activez **Mode développeur**, cliquez sur **Charger l’extension non empaquetée** et sélectionnez le dossier du projet.
+In `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and select the project folder.
 
-## Utiliser
+## Use
 
-1. Cliquez sur l’extension ou appuyez sur **Alt+C**.
-2. Sélectionnez l’élément principal et rédigez votre demande.
-3. Ajoutez des éléments de référence si nécessaire.
-4. Cliquez sur **Copier le contexte pour une IA**, puis collez-le dans votre assistant.
+The interface is in French; button labels are quoted as they appear, with a translation.
 
-**Changer de cible** efface les éléments en conservant la demande. Les copies du contenu, du HTML et du sélecteur concernent uniquement le principal. **Échap** annule un ajout ou ferme le panneau.
+1. Click the extension or press **Alt+C**.
+2. Select the main element and write your request.
+3. Add reference elements if needed.
+4. Click **Copier le contexte pour une IA** (copy the context for an AI), then paste it into your assistant.
 
-Pour atteindre un élément masqué par le panneau, faites glisser son en-tête. Le bouton à double flèche permet aussi de le replacer en haut ou en bas à droite.
+**Changer de cible** (change target) clears the elements but keeps your request. Copying the content, HTML or selector applies to the main element only. **Esc** cancels an addition or closes the panel.
 
-Extension déjà installée : si Chrome conserve l’ancien raccourci, attribuez **Alt+C** dans `chrome://extensions/shortcuts`.
+To reach an element hidden by the panel, drag its header. The double-arrow button also moves it to the top or bottom right.
 
-## À savoir
+Extension already installed: if Chrome keeps the old shortcut, assign **Alt+C** in `chrome://extensions/shortcuts`.
 
-- React, Vue et Angular : informations de composants lorsqu’elles sont accessibles. Tailwind : indices basés sur les classes. La détection reste limitée en production.
-- Shadow DOM ouvert pris en charge ; contenu des iframes et pages protégées de Chrome exclus.
-- Traitement local, sans envoi à une IA ni historique. Fermer le panneau ou recharger la page efface la session.
-- Le contenu copié provient de la page : vérifiez-le avant de le partager.
+## In action
 
-## Développer
+**Describe** — your request travels with the targeted element.
 
-Sources en TypeScript dans `src/`. Après modification : `npm run build`, puis actualisez l’extension et rechargez la page.
+<img src="https://raw.githubusercontent.com/syl-craft/cadranote-media/main/videos/02-describe-en.gif" alt="Demo: the request is typed into the panel's request field" width="960">
 
-| Commande | Usage |
+**Reference** — **Ajouter un élément** (add an element) numbers references in green.
+
+<img src="https://raw.githubusercontent.com/syl-craft/cadranote-media/main/videos/03-reference-en.gif" alt="Demo: two buttons are added as reference elements, outlined in green and numbered 1 and 2" width="960">
+
+**Copy** — one message to paste into your assistant.
+
+<img src="https://raw.githubusercontent.com/syl-craft/cadranote-media/main/videos/04-copy-en.gif" alt="Demo: the copy button is clicked, then the full context is pasted into an AI assistant" width="960">
+
+**Inspect** — components and classes, when the page exposes them.
+
+<img src="https://raw.githubusercontent.com/syl-craft/cadranote-media/main/videos/05-inspect-en.gif" alt="Demo: the components and styles section shows the component hierarchy and Tailwind classes" width="960">
+
+**Stay in control** — the panel moves aside, nothing leaves the browser.
+
+<img src="https://raw.githubusercontent.com/syl-craft/cadranote-media/main/videos/06-panel-en.gif" alt="Demo: the panel is dragged by its header to reveal a hidden card, then the local-only copy notice is highlighted" width="960">
+
+## Good to know
+
+- React, Vue and Angular: component information when available. Tailwind: hints based on class names. Detection is limited in production builds.
+- Open Shadow DOM is supported; iframe contents and protected Chrome pages are excluded.
+- Everything runs locally: nothing is sent to an AI, no history is kept. Closing the panel or reloading the page clears the session.
+- Copied content comes from the page: review it before sharing.
+
+## Develop
+
+TypeScript sources live in `src/`. After a change: `npm run build`, then reload the extension and the page.
+
+| Command | Purpose |
 | --- | --- |
-| `npm run check` | Types et formatage |
-| `npm test` | Tests de session et navigateur |
-| `npm run package` | Vérifications et ZIP sous Windows/PowerShell |
-| `npm run icons` | Générer les icônes Chrome |
-| `npm run docs:capture` | Actualiser les captures |
+| `npm run check` | Types and formatting |
+| `npm test` | Session and browser tests |
+| `npm run package` | Checks and ZIP on Windows/PowerShell |
+| `npm run icons` | Generate the Chrome icons |
+| `npm run docs:capture` | Refresh the screenshots |
+| `node tools/motion-demo/render.mjs` | Render the animated demos |
 
-GitHub Actions vérifie chaque push et fournit le ZIP en artefact. Les bundles générés ne sont pas versionnés.
+GitHub Actions checks every push and provides the ZIP as an artifact. Generated bundles are not versioned. The demos are rendered into the [cadranote-media](https://github.com/syl-craft/cadranote-media) repository, cloned next to this one.
 
-[Architecture](ARCHITECTURE.md) · [Identité visuelle](docs/IDENTITY.md) · [Page de démonstration](docs/demo.html)
+[Architecture](ARCHITECTURE.md) (French) · [Visual identity](docs/IDENTITY.md) (French) · [Demo page](docs/demo.html)
