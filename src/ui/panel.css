@@ -14,12 +14,55 @@
   --action-hover: #0759ce;
   --on-action: #ffffff;
   --control-hover-border: #88a7cc;
+  --surface-header: #101e33;
+  --surface-code: #0c1b30;
+  --surface-input: #101e33;
+  --selection: #28588f;
+  --attachment-text: #36c88d;
+  --attachment-badge: #478c77;
+  --result-bg: linear-gradient(125deg, #123c73, #1b2b46);
+  --result-border: #365d87;
+  --result-meta: #d1e2f8;
+  --panel-shadow: 0 20px 60px #02081780, 0 4px 12px #02081740;
+  --logo-tile: #0b1628;
+  --logo-lines: #f1f5fc;
+  --logo-gradient-start: #83c2ff;
+  --logo-gradient-end: #2784ff;
+  --color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :host {
+    --surface: #ffffff;
+    --surface-raised: #eef3f9;
+    --text-primary: #0b1628;
+    --text-secondary: #4d5f78;
+    --border: #d5deea;
+    --target: #0a5bc9;
+    --target-wash: #0866eb18;
+    --control-border: #7d8fa7;
+    --control-hover-border: #4d5f78;
+    --surface-header: #f4f7fb;
+    --surface-code: #f5f8fc;
+    --surface-input: #fbfcfe;
+    --selection: #cfe2ff;
+    --attachment-text: #0f7a54;
+    --attachment-badge: #8fd3b5;
+    --result-bg: #edf4fe;
+    --result-border: #bcd3f0;
+    --result-meta: #34507a;
+    --panel-shadow: 0 20px 60px #0b162826, 0 4px 12px #0b162814;
+    --logo-tile: #ffffff;
+    --logo-lines: #0b1628;
+    --logo-gradient-start: #2f8bff;
+    --logo-gradient-end: #0757c9;
+    --color-scheme: light;
+  }
 }
 * {
   box-sizing: border-box;
 }
 ::selection {
-  background: #28588f;
+  background: var(--selection);
   color: var(--text-primary);
 }
 .box {
@@ -79,20 +122,18 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  box-shadow:
-    0 20px 60px #02081780,
-    0 4px 12px #02081740;
+  box-shadow: var(--panel-shadow);
   font:
     13px/1.5 system-ui,
     sans-serif;
   text-align: left;
-  color-scheme: dark;
+  color-scheme: var(--color-scheme);
 }
 header {
   cursor: grab;
   touch-action: none;
   user-select: none;
-  background: #101e33;
+  background: var(--surface-header);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -113,6 +154,19 @@ header {
   display: block;
   width: 100%;
   height: 100%;
+}
+.logo rect {
+  fill: var(--logo-tile);
+  stroke: var(--border);
+}
+.logo path:last-of-type {
+  stroke: var(--logo-lines);
+}
+.logo stop:first-child {
+  stop-color: var(--logo-gradient-start);
+}
+.logo stop:last-child {
+  stop-color: var(--logo-gradient-end);
 }
 h1 {
   font:
@@ -210,14 +264,14 @@ p {
 #result {
   margin-top: 16px;
   padding: 14px;
-  border: 1px solid #365d87;
+  border: 1px solid var(--result-border);
   border-radius: 12px;
-  background: linear-gradient(125deg, #123c73, #1b2b46);
+  background: var(--result-bg);
 }
 #result .meta,
 #result .label,
 #result summary {
-  color: #d1e2f8;
+  color: var(--result-meta);
 }
 .primary-heading {
   display: flex;
@@ -278,7 +332,7 @@ pre {
     12px/1.55 ui-monospace,
     monospace;
   padding: 10px 12px;
-  background: #0c1b30;
+  background: var(--surface-code);
   border: 1px solid var(--border);
   border-radius: 6px;
   margin: 0;
@@ -295,7 +349,7 @@ textarea {
   padding: 12px;
   border: 1px solid var(--control-border);
   border-radius: 6px;
-  background: #101e33;
+  background: var(--surface-input);
   color: var(--text-primary);
   font:
     13px/1.6 system-ui,
@@ -355,15 +409,15 @@ textarea::placeholder {
   font-weight: 650;
 }
 #attachments .step {
-  color: var(--attachment-green);
+  color: var(--attachment-text);
 }
 #attachment-count {
   display: inline-block;
   margin-left: 5px;
   padding: 0 5px;
-  border: 1px solid #478c77;
+  border: 1px solid var(--attachment-badge);
   border-radius: 3px;
-  color: var(--attachment-green);
+  color: var(--attachment-text);
   font:
     11px/1.5 ui-monospace,
     monospace;
@@ -381,7 +435,7 @@ textarea::placeholder {
 }
 #attachment-list button {
   border-color: transparent;
-  color: var(--attachment-green);
+  color: var(--attachment-text);
 }
 .attachment-name {
   flex: 1;
@@ -418,7 +472,7 @@ summary {
 .feedback {
   min-height: 18px;
   margin-top: 8px;
-  color: var(--attachment-green);
+  color: var(--attachment-text);
   font-size: 12px;
 }
 .footer {
@@ -469,10 +523,10 @@ summary {
   place-items: center;
 }
 .panel[data-phase="selecting-supplement"] .status {
-  color: var(--attachment-green);
+  color: var(--attachment-text);
 }
 .panel[data-phase="selecting-supplement"] .dot {
-  background: var(--attachment-green);
+  background: var(--attachment-text);
 }
 kbd {
   font: inherit;

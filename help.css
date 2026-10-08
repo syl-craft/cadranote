@@ -1,22 +1,37 @@
 :root {
+  --surface: #0b1628;
+  --surface-raised: #1d2c43;
+  --text-primary: #f1f5fc;
+  --text-secondary: #b2c1d6;
+  --target: #72b5ff;
   color-scheme: dark;
   font:
     16px/1.65 system-ui,
     sans-serif;
-  background: #0b1628;
-  color: #f1f5fc;
+  background: var(--surface);
+  color: var(--text-primary);
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --surface: #ffffff;
+    --surface-raised: #eef3f9;
+    --text-primary: #0b1628;
+    --text-secondary: #4d5f78;
+    --target: #0a5bc9;
+    color-scheme: light;
+  }
 }
 body {
   margin: 0;
   padding: 64px 24px;
-  border-top: 4px solid #72b5ff;
+  border-top: 4px solid var(--target);
 }
 main {
   max-width: 680px;
   margin: auto;
 }
 .eyebrow {
-  color: #72b5ff;
+  color: var(--target);
   letter-spacing: 0.16em;
   font-size: 12px;
   font-weight: 700;
@@ -28,11 +43,11 @@ h1 {
     sans-serif;
 }
 p {
-  color: #b2c1d6;
+  color: var(--text-secondary);
 }
 code {
-  color: #72b5ff;
-  background: #1d2c43;
+  color: var(--target);
+  background: var(--surface-raised);
   padding: 3px 6px;
   border-radius: 2px;
 }

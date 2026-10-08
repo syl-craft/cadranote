@@ -18,7 +18,7 @@ export function createOverlay(): Overlay {
     "z-index:2147483647!important",
     "pointer-events:none!important",
     "display:block!important",
-    "color-scheme:dark!important",
+    "color-scheme:light dark!important",
   ].join(";");
 
   const root = host.attachShadow({ mode: "closed" });
