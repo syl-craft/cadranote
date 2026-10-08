@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Atelier — Nos formules</title>
+    <title>Orée — Projets</title>
     <style>
       * {
         box-sizing: border-box;
       }
       body {
         margin: 0;
-        background: #f6f5fa;
-        color: #242237;
+        background: #f6f4f0;
+        color: #1c1a24;
         font:
           16px/1.5 system-ui,
           sans-serif;
@@ -23,36 +23,48 @@
       nav {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding-bottom: 32px;
-        border-bottom: 1px solid #dedbe8;
+        gap: 28px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid #e2ddd5;
+        font-size: 13px;
+        color: #6e6878;
       }
       .brand {
-        font-size: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-right: auto;
+        color: #1c1a24;
+        font-size: 22px;
         font-weight: 750;
-        letter-spacing: -1px;
+        letter-spacing: -0.8px;
       }
-      .demo {
-        font-size: 12px;
-        color: #716985;
+      .brand svg {
+        width: 28px;
+        height: 28px;
       }
       .eyebrow {
-        margin: 56px 0 12px;
-        color: #7461e8;
+        margin: 44px 0 12px;
+        color: #6a4cf5;
         font-size: 12px;
         font-weight: 700;
         letter-spacing: 2px;
       }
       h1 {
         margin: 0;
-        font-size: 46px;
-        line-height: 1.15;
-        letter-spacing: -2px;
+        font:
+          400 48px/1.08 Georgia,
+          "Times New Roman",
+          serif;
+        letter-spacing: -1.5px;
+      }
+      h1 em {
+        color: #6a4cf5;
       }
       .intro {
-        color: #716985;
-        max-width: 550px;
-        margin: 20px 0 36px;
+        color: #6e6878;
+        max-width: 600px;
+        margin: 16px 0 30px;
       }
       .cards {
         display: grid;
@@ -60,48 +72,46 @@
         gap: 18px;
       }
       article {
+        display: flex;
+        flex-direction: column;
         background: white;
-        padding: 24px;
-        border: 1px solid #dedbe8;
+        padding: 14px 14px 18px;
+        border: 1px solid #e2ddd5;
         border-radius: 18px;
       }
+      .visual {
+        display: block;
+        width: 100%;
+        height: 128px;
+        border-radius: 12px;
+      }
+      .tags {
+        margin: 14px 4px 4px;
+        color: #6a4cf5;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
       h2 {
-        margin: 0 0 8px;
-        font-size: 19px;
+        margin: 0 4px 4px;
+        font:
+          400 22px/1.2 Georgia,
+          "Times New Roman",
+          serif;
       }
       article p {
-        color: #716985;
+        margin: 0 4px 16px;
+        color: #6e6878;
         font-size: 13px;
-      }
-      .price {
-        margin: 28px 0;
-        font-size: 36px;
-        font-weight: 700;
-        color: #242237;
-      }
-      .price span {
-        font-size: 13px;
-        font-weight: 400;
-        color: #716985;
-      }
-      ul {
-        min-height: 90px;
-        padding: 0;
-        list-style: none;
-        font-size: 13px;
-        line-height: 2;
-      }
-      li::before {
-        content: "✓";
-        margin-right: 8px;
-        color: #288560;
       }
       button {
         width: 100%;
+        margin-top: auto;
         padding: 12px 8px;
         border: 0;
         border-radius: 9px;
-        background: #7461e8;
+        background: #6a4cf5;
         color: white;
         font:
           600 13px system-ui,
@@ -109,64 +119,213 @@
         cursor: pointer;
       }
       .secondary {
-        color: #5e4bc8;
-        background: #eeeafa;
+        color: #5333d6;
+        background: #ece8fb;
       }
-      .note {
-        margin-top: 32px;
-        color: #716985;
-        font-size: 13px;
+      .stats {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
+        gap: 18px;
+        margin-top: 18px;
+      }
+      .stat {
+        padding: 16px 18px;
+        background: white;
+        border: 1px solid #e2ddd5;
+        border-radius: 18px;
+      }
+      .stat h3 {
+        margin: 0;
+        color: #6e6878;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .stat strong {
+        display: block;
+        margin: 2px 0 8px;
+        font:
+          400 28px/1.1 Georgia,
+          "Times New Roman",
+          serif;
+      }
+      .stat svg {
+        display: block;
+        width: 100%;
+        height: 72px;
+      }
+      .donut {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .donut svg {
+        flex-shrink: 0;
+        width: 72px;
+      }
+      .legend {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        color: #6e6878;
+        font-size: 12px;
+        line-height: 1.9;
+      }
+      .legend i {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-right: 6px;
+        border-radius: 2px;
       }
     </style>
   </head>
   <body>
     <main>
       <nav>
-        <span class="brand">atelier.</span
-        ><span class="demo">Page de démonstration · Cadranote</span>
+        <span class="brand"
+          ><svg viewBox="0 0 28 28" aria-hidden="true">
+            <circle cx="14" cy="14" r="13" fill="#1c1a24" />
+            <path d="M5 17a9 9 0 0 1 18 0Z" fill="#f5b83d" /></svg
+          >orée.</span
+        ><span>Projets</span><span>Studio</span><span>Contact</span>
       </nav>
-      <p class="eyebrow">UN ESPACE POUR VOS PROJETS</p>
-      <h1>À chaque équipe<br />sa façon de créer.</h1>
+      <p class="eyebrow">DESIGN PRODUIT · IDENTITÉ · DATA</p>
+      <h1>Des interfaces<br />qui <em>racontent</em> quelque chose.</h1>
       <p class="intro">
-        Choisissez la formule qui accompagne votre prochain projet. Des outils simples, de la
-        première idée à la livraison.
+        Orée est un studio de design indépendant. Nous dessinons des produits, des identités et des
+        visualisations de données, de la première esquisse au lancement.
       </p>
-      <section class="cards" aria-label="Nos formules">
+      <section class="cards" aria-label="Projets récents">
         <article>
-          <h2>Essentiel</h2>
-          <p>Pour lancer vos premières idées.</p>
-          <p class="price">12 € <span>/ mois</span></p>
-          <ul>
-            <li>3 projets actifs</li>
-            <li>Un espace personnel</li>
-            <li>Export des fichiers</li>
-          </ul>
-          <button data-testid="choose-essential">Choisir Essentiel</button>
+          <svg class="visual" viewBox="0 0 244 128" aria-hidden="true">
+            <rect width="244" height="128" fill="#ece8fb" />
+            <circle cx="122" cy="64" r="58" fill="#ddd5fb" />
+            <circle cx="122" cy="64" r="40" fill="#c7b9fa" />
+            <rect x="96" y="14" width="52" height="100" rx="10" fill="#1c1a24" />
+            <circle cx="122" cy="52" r="15" fill="none" stroke="#a48cff" stroke-width="5" />
+            <circle cx="122" cy="52" r="6" fill="#f5b83d" />
+            <rect x="106" y="80" width="32" height="5" rx="2.5" fill="#6a4cf5" />
+            <rect x="110" y="91" width="24" height="5" rx="2.5" fill="#4b4558" />
+          </svg>
+          <p class="tags">Produit · iOS</p>
+          <h2>Lumen</h2>
+          <p>Une application de méditation qui guide par la respiration.</p>
+          <button data-testid="open-lumen">Découvrir Lumen</button>
         </article>
         <article>
-          <h2>Équipe</h2>
-          <p>Pour avancer à plusieurs.</p>
-          <p class="price">29 € <span>/ mois</span></p>
-          <ul>
-            <li>Projets illimités</li>
-            <li>5 collaborateurs</li>
-            <li>Commentaires partagés</li>
-          </ul>
-          <button class="secondary" data-testid="choose-team">Choisir Équipe</button>
+          <svg class="visual" viewBox="0 0 244 128" aria-hidden="true">
+            <rect width="244" height="128" fill="#e3f3f0" />
+            <circle cx="164" cy="50" r="24" fill="#f5b83d" />
+            <path d="M0 74q30-16 61 0t61 0 61 0 61 0V128H0Z" fill="#7fcfc1" />
+            <path d="M0 90q30-16 61 0t61 0 61 0 61 0V128H0Z" fill="#1fa392" />
+            <path d="M0 106q30-14 61 0t61 0 61 0 61 0V128H0Z" fill="#14776b" />
+            <text x="26" y="52" fill="#14776b" font-family="Georgia, serif" font-size="34">R</text>
+          </svg>
+          <p class="tags">Identité · Print</p>
+          <h2>Rivage</h2>
+          <p>L’identité complète d’un hôtel posé face à l’océan.</p>
+          <button class="secondary" data-testid="open-rivage">Découvrir Rivage</button>
         </article>
         <article>
-          <h2>Studio</h2>
-          <p>Pour les projets ambitieux.</p>
-          <p class="price">59 € <span>/ mois</span></p>
-          <ul>
-            <li>Projets illimités</li>
-            <li>Collaborateurs illimités</li>
-            <li>Support prioritaire</li>
-          </ul>
-          <button class="secondary" data-testid="choose-studio">Choisir Studio</button>
+          <svg class="visual" viewBox="0 0 244 128" aria-hidden="true">
+            <rect width="244" height="128" fill="#1c1a24" />
+            <path d="M20 32H224M20 64H224M20 96H224" stroke="#34303f" stroke-width="1" />
+            <path
+              d="M20 98 52 86 84 90 116 66 148 72 180 44 224 30V112H20Z"
+              fill="#ff7a59"
+              fill-opacity="0.18"
+            />
+            <path
+              d="M20 98 52 86 84 90 116 66 148 72 180 44 224 30"
+              fill="none"
+              stroke="#ff7a59"
+              stroke-width="3"
+              stroke-linejoin="round"
+            />
+            <circle cx="180" cy="44" r="5" fill="#f6f4f0" />
+            <rect x="150" y="14" width="60" height="18" rx="9" fill="#f6f4f0" />
+            <text
+              x="160"
+              y="27"
+              fill="#1c1a24"
+              font-family="system-ui"
+              font-size="11"
+              font-weight="700"
+            >
+              +1,4 °C
+            </text>
+          </svg>
+          <p class="tags">Data · Web</p>
+          <h2>Atlas</h2>
+          <p>Un tableau de bord qui rend lisibles les données du climat.</p>
+          <button class="secondary" data-testid="open-atlas">Découvrir Atlas</button>
         </article>
       </section>
-      <p class="note">Sans engagement. Changez de formule quand vous le souhaitez.</p>
+      <section class="stats" aria-label="Le studio en chiffres">
+        <div class="stat">
+          <h3>Rétention de Lumen à 30 jours</h3>
+          <strong>+38 %</strong>
+          <svg viewBox="0 0 260 72" preserveAspectRatio="none" aria-hidden="true">
+            <path
+              d="M0 62 40 58 80 50 120 52 160 34 200 28 260 10V72H0Z"
+              fill="#6a4cf5"
+              fill-opacity="0.12"
+            />
+            <path
+              d="M0 62 40 58 80 50 120 52 160 34 200 28 260 10"
+              fill="none"
+              stroke="#6a4cf5"
+              stroke-width="3"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="stat">
+          <h3>Projets livrés depuis 2021</h3>
+          <strong>42</strong>
+          <svg viewBox="0 0 200 72" aria-hidden="true">
+            <rect x="4" y="50" width="22" height="22" rx="4" fill="#ddd5fb" />
+            <rect x="38" y="40" width="22" height="32" rx="4" fill="#ddd5fb" />
+            <rect x="72" y="34" width="22" height="38" rx="4" fill="#c7b9fa" />
+            <rect x="106" y="22" width="22" height="50" rx="4" fill="#a48cff" />
+            <rect x="140" y="14" width="22" height="58" rx="4" fill="#8466ff" />
+            <rect x="174" y="4" width="22" height="68" rx="4" fill="#6a4cf5" />
+          </svg>
+        </div>
+        <div class="stat">
+          <h3>Répartition des missions</h3>
+          <div class="donut">
+            <svg viewBox="0 0 42 42" aria-hidden="true">
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#6a4cf5" stroke-width="7" />
+              <circle
+                cx="21"
+                cy="21"
+                r="15.9"
+                fill="none"
+                stroke="#1fa392"
+                stroke-width="7"
+                stroke-dasharray="30 70"
+                transform="rotate(72 21 21)"
+              />
+              <circle
+                cx="21"
+                cy="21"
+                r="15.9"
+                fill="none"
+                stroke="#ff7a59"
+                stroke-width="7"
+                stroke-dasharray="25 75"
+                transform="rotate(180 21 21)"
+              />
+            </svg>
+            <ul class="legend">
+              <li><i style="background: #6a4cf5"></i>Produit 45 %</li>
+              <li><i style="background: #1fa392"></i>Identité 30 %</li>
+              <li><i style="background: #ff7a59"></i>Data 25 %</li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </main>
   </body>
 </html>

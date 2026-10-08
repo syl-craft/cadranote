@@ -45,7 +45,8 @@ await mkdir(options.stills ? STILLS : MEDIA, { recursive: true });
 
 const browser = await chromium.launch({ channel: "chrome", headless: true });
 try {
-  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+  // Le panneau suit le thème du système : les clips le montrent en thème clair.
+  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, colorScheme: "light" });
   for (const clip of clips) {
     for (const lang of langs) {
       const scene = CLIPS.indexOf(clip) + 1;

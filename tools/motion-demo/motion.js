@@ -62,10 +62,10 @@ const page = {
   card: (i) => () => document.querySelectorAll("#page article")[i],
   cards: () => $("#page .cards"),
   main: () => $("#page main"),
-  ess: () => $('[data-k="ess"]'),
-  team: () => $('[data-k="team"]'),
-  studio: () => $('[data-k="studio"]'),
-  corp: () => $('[data-k="corp"]'),
+  ess: () => $('[data-k="lumen"]'),
+  team: () => $('[data-k="rivage"]'),
+  studio: () => $('[data-k="atlas"]'),
+  corp: () => $('[data-k="fauve"]'),
 };
 const inPanel = (selector) => () => $(selector, ui);
 
@@ -146,15 +146,16 @@ function components(list) {
 // ---------- Panneau (vrai balisage et vraies feuilles de style de l’extension) ----------
 
 const INSTRUCTION =
-  "Donner au bouton Essentiel le même style que les boutons Équipe et Studio.";
-const SELECTOR = 'button[data-testid="choose-essential"]';
+  "Donner au bouton du projet Lumen le même style que ceux des projets Rivage et Atlas.";
+const SELECTOR = 'button[data-testid="open-lumen"]';
 const PATH = "main > section.cards > article:nth-of-type(1) > button";
-const HTML_SNIPPET = '<button data-testid="choose-essential">Choisir Essentiel</button>';
+const HTML_SNIPPET = '<button data-testid="open-lumen">Découvrir Lumen</button>';
 const INSPECTION = [
-  "React : PlanButton → PlanCard → PricingGrid → PricingPage",
-  "Source exposée : src/pricing/PlanCard.tsx:42",
-  "Classes compatibles Tailwind : w-full rounded-lg bg-violet-500 py-3 font-semibold text-white",
+  "React : ProjectLink → ProjectCard → ProjectGrid → PortfolioPage",
+  "Source exposée : src/portfolio/ProjectCard.tsx:42",
+  "Classes compatibles Tailwind : w-full rounded-lg bg-violet-600 py-3 font-semibold text-white",
 ];
+const size = (element) => rect(element).slice(2).map(Math.round).join(" × ");
 
 const PANEL_DEFAULTS = {
   visible: 1,
@@ -211,7 +212,7 @@ function panel(options) {
 
   show("#hint", state.hint);
   show("#result", state.primary);
-  setText("#meta", "button · 223 × 41 px");
+  setText("#meta", `button · ${size(page.ess())} px`);
   setText("#selector-label", "Sélecteur CSS unique");
   setText("#selector", state.selector);
   setText("#path", PATH);
@@ -489,7 +490,7 @@ const SCENES = [
       $("#page").className = "page";
       keys([], 0);
       const clicks = [1.6, 3.0, 4.5, 5.9];
-      const supplements = t >= 5.9 ? ["Choisir Équipe", "Choisir Studio"] : t >= 3.0 ? ["Choisir Équipe"] : [];
+      const supplements = t >= 5.9 ? ["Découvrir Rivage", "Découvrir Atlas"] : t >= 3.0 ? ["Découvrir Rivage"] : [];
       const adding = (t >= 1.6 && t < 3.0) || (t >= 4.5 && t < 5.9);
       panel({
         ...SELECTED,
@@ -550,7 +551,7 @@ const SCENES = [
       panel({
         ...SELECTED,
         instruction: INSTRUCTION,
-        supplements: ["Choisir Équipe", "Choisir Studio"],
+        supplements: ["Découvrir Rivage", "Découvrir Atlas"],
         attachmentsOpen: false,
         feedback: clicked ? "Contexte copié : le principal et 2 élément(s) supplémentaire(s)." : "",
         pressed: t >= 1.6 && t < 1.8 ? "#copy-ai" : null,
@@ -608,7 +609,7 @@ const SCENES = [
       highlight($("#hover"), null);
       highlight($("#primary"), rect(page.ess()), null);
 
-      const names = ["PlanButton", "PlanCard", "PricingGrid", "PricingPage"];
+      const names = ["ProjectLink", "ProjectCard", "ProjectGrid", "PortfolioPage"];
       const targets = [page.ess, page.card(0), page.cards, page.main];
       const pads = [6, 8, 12, 4];
       components(
@@ -673,7 +674,7 @@ const SCENES = [
         phase: adding ? "selecting-supplement" : "editing-request",
         instruction: INSTRUCTION,
         offset,
-        supplements: added ? ["Choisir Entreprise"] : [],
+        supplements: added ? ["Découvrir Fauve"] : [],
         attachmentsOpen: false,
         hint: false,
         glow: t >= 6.8 && t < 9.2 ? ".footer" : null,
@@ -741,26 +742,26 @@ const CONTEXT = [
   "3 éléments HTML à cibler — instantanés pris lors de leur ajout ou de la copie.",
   "",
   "<h>## Élément principal</h>",
-  "Page : https://atelier.app/formules",
-  "Titre : Atelier — Nos formules",
+  "Page : https://oree.studio/projets",
+  "Titre : Orée — Projets",
   `Sélecteur CSS : <s>${SELECTOR}</s>`,
   `Chemin HTML : ${PATH}`,
-  "Texte : Choisir Essentiel",
-  "Dimensions : 223 × 41 px",
+  "Texte : Découvrir Lumen",
+  "Dimensions : {size} px",
   "Extrait HTML (DOM rendu, éventuellement tronqué) :",
   "```html",
   HTML_SNIPPET,
   "```",
   "",
   "<g>## Élément supplémentaire 1</g>",
-  'Sélecteur CSS : <s>button[data-testid="choose-team"]</s>',
-  "Texte : Choisir Équipe",
+  'Sélecteur CSS : <s>button[data-testid="open-rivage"]</s>',
+  "Texte : Découvrir Rivage",
   "Extrait HTML (DOM rendu, éventuellement tronqué) :",
-  '<button class="secondary" data-testid="choose-team">Choisir Équipe</button>',
+  '<button class="secondary" data-testid="open-rivage">Découvrir Rivage</button>',
   "",
   "<g>## Élément supplémentaire 2</g>",
-  'Sélecteur CSS : <s>button[data-testid="choose-studio"]</s>',
-  "Texte : Choisir Studio",
+  'Sélecteur CSS : <s>button[data-testid="open-atlas"]</s>',
+  "Texte : Découvrir Atlas",
   "",
   `Modification demandée : <r>${INSTRUCTION}</r>`,
   "Retrouve le composant ou le template qui produit l’élément principal et applique la modification dans le code source.",
@@ -769,9 +770,13 @@ const CONTEXT = [
 function escapeHtml(text) {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
-const CONTEXT_HTML = CONTEXT.map((line) =>
-  escapeHtml(line).replace(/&lt;(h|s|g|r)&gt;(.*?)&lt;\/\1&gt;/g, '<span class="$1">$2</span>'),
-).join("\n");
+const contextHtml = () =>
+  CONTEXT.map((line) =>
+    escapeHtml(line.replace("{size}", size(page.ess()))).replace(
+      /&lt;(h|s|g|r)&gt;(.*?)&lt;\/\1&gt;/g,
+      '<span class="$1">$2</span>',
+    ),
+  ).join("\n");
 
 function assistant(t) {
   const element = $("#ai");
@@ -784,7 +789,7 @@ function assistant(t) {
   $("#ai-placeholder").style.display = pasted ? "none" : "block";
   const text = $("#ai-text");
   if (text.dataset.pasted !== String(pasted)) {
-    text.innerHTML = pasted ? CONTEXT_HTML : "";
+    text.innerHTML = pasted ? contextHtml() : "";
     text.dataset.pasted = String(pasted);
   }
   const maxScroll = Math.max(0, text.scrollHeight - 560 + 20);
