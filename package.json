@@ -12,7 +12,7 @@
     "format": "prettier --write src tests scripts tsconfig.json package.json .prettierrc.json",
     "format:check": "prettier --check src tests scripts tsconfig.json package.json .prettierrc.json",
     "test": "npm run build && node scripts/build-tests.mjs && node --test .test-build/session-machine.test.cjs tests/locator.test.cjs",
-    "package": "npm run check && npm test && powershell -NoProfile -File scripts/package.ps1"
+    "package": "npm run check && npm test && node scripts/package.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",

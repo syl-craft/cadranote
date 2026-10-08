@@ -69,11 +69,11 @@ Sources en TypeScript dans `src/`. Après modification : `npm run build`, puis a
 | --- | --- |
 | `npm run check` | Types et formatage |
 | `npm test` | Tests de session et navigateur |
-| `npm run package` | Vérifications et ZIP sous Windows/PowerShell |
+| `npm run package` | Vérifications, puis ZIP Chrome/Edge, Firefox et sources dans `dist/` |
 | `npm run icons` | Générer les icônes Chrome |
 | `npm run docs:capture` | Actualiser les captures |
 | `node tools/motion-demo/render.mjs` | Rendre les démonstrations animées |
 
-GitHub Actions vérifie chaque push et fournit le ZIP en artefact. Les bundles générés ne sont pas versionnés. Les démonstrations sont rendues dans le dépôt [cadranote-media](https://github.com/syl-craft/cadranote-media), cloné à côté de celui-ci.
+GitHub Actions vérifie chaque push et fournit les ZIP en artefact. Un tag `vX.Y.Z` publie sur les stores Chrome, Firefox et Edge : voir [Publication](docs/PUBLICATION.md). Les bundles générés ne sont pas versionnés. Les démonstrations sont rendues dans le dépôt [cadranote-media](https://github.com/syl-craft/cadranote-media), cloné à côté de celui-ci.
 
 [Architecture](ARCHITECTURE.md) · [Identité visuelle](docs/IDENTITY.md) · [Page de démonstration](docs/demo.html)

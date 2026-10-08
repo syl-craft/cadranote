@@ -1,0 +1,110 @@
+name: Publication
+
+# Un tag vX.Y.Z publie la version sur les stores configurés et crée la release GitHub.
+# Le lancement manuel fait un essai à blanc (authentification Chrome et Firefox), sauf si dry-run est décoché.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Vérifier l'authentification sans envoyer l'extension
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+# Correctifs Chrome Web Store API v2 du fork, en attente dans le dépôt d'origine.
+env:
+  PUBLISH_TOOL_REPOSITORY: syl-craft/publish-browser-extension
+  PUBLISH_TOOL_REF: 648ccd518a0784f5376d6fe2f4a76b088d59492b # fix/chrome-v2-async-upload
+
+jobs:
+  package:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Vérifier que le tag correspond à la version
+        if: github.ref_type == 'tag'
+        shell: bash
+        run: |
+          version="v$(node -p "require('./manifest.json').version")"
+          if [ "$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Le tag $GITHUB_REF_NAME ne correspond pas à manifest.json ($version)"
+            exit 1
+          fi
+      - run: npm ci
+      - run: npx playwright install chrome
+      - run: npm run package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stores
+          path: dist/*.zip
+          if-no-files-found: error
+
+  publish:
+    needs: package
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: stores
+    permissions:
+      contents: write # release GitHub
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: stores
+          path: dist
+      - uses: actions/checkout@v6
+        with:
+          repository: ${{ env.PUBLISH_TOOL_REPOSITORY }}
+          ref: ${{ env.PUBLISH_TOOL_REF }}
+          path: publish-browser-extension
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: publish-browser-extension/.tool-versions
+      - run: bun install --frozen-lockfile
+        working-directory: publish-browser-extension
+
+      # Un store n'est publié que si son identifiant est renseigné dans les variables de l'environnement.
+      - name: Publier sur les stores
+        env:
+          DRY_RUN_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run }}
+          CHROME_API_VERSION: v2
+          CHROME_EXTENSION_ID: ${{ vars.CHROME_EXTENSION_ID }}
+          CHROME_PUBLISHER_ID: ${{ vars.CHROME_PUBLISHER_ID }}
+          CHROME_SERVICE_ACCOUNT_CLIENT_EMAIL: ${{ vars.CHROME_SERVICE_ACCOUNT_CLIENT_EMAIL }}
+          CHROME_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.CHROME_SERVICE_ACCOUNT_PRIVATE_KEY }}
+          FIREFOX_EXTENSION_ID: ${{ vars.FIREFOX_EXTENSION_ID }}
+          FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+          EDGE_PRODUCT_ID: ${{ vars.EDGE_PRODUCT_ID }}
+          EDGE_CLIENT_ID: ${{ secrets.EDGE_CLIENT_ID }}
+          EDGE_API_KEY: ${{ secrets.EDGE_API_KEY }}
+        run: |
+          # Clé PEM stockée sur une ligne : les \n littéraux redeviennent des retours à la ligne.
+          CHROME_SERVICE_ACCOUNT_PRIVATE_KEY="$(printf '%b' "$CHROME_SERVICE_ACCOUNT_PRIVATE_KEY")"
+          export CHROME_SERVICE_ACCOUNT_PRIVATE_KEY
+          args=()
+          [ -n "$CHROME_EXTENSION_ID" ] && args+=(--chrome-zip dist/cadranote-chrome.zip)
+          [ -n "$FIREFOX_EXTENSION_ID" ] &&
+            args+=(--firefox-zip dist/cadranote-firefox.zip --firefox-sources-zip dist/cadranote-sources.zip)
+          [ -n "$EDGE_PRODUCT_ID" ] && args+=(--edge-zip dist/cadranote-chrome.zip)
+          if [ ${#args[@]} -eq 0 ]; then
+            echo "::warning::Aucun store configuré : rien n'est publié."
+            exit 0
+          fi
+          [ "$DRY_RUN_INPUT" = "true" ] && args+=(--dry-run)
+          bun publish-browser-extension/src/cli.ts "${args[@]}"
+
+      - name: Créer la release GitHub
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --repo "$GITHUB_REPOSITORY" --generate-notes

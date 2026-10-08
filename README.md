@@ -71,11 +71,11 @@ TypeScript sources live in `src/`. After a change: `npm run build`, then reload 
 | --- | --- |
 | `npm run check` | Types and formatting |
 | `npm test` | Session and browser tests |
-| `npm run package` | Checks and ZIP on Windows/PowerShell |
+| `npm run package` | Checks, then Chrome/Edge, Firefox and sources ZIPs in `dist/` |
 | `npm run icons` | Generate the Chrome icons |
 | `npm run docs:capture` | Refresh the screenshots |
 | `node tools/motion-demo/render.mjs` | Render the animated demos |
 
-GitHub Actions checks every push and provides the ZIP as an artifact. Generated bundles are not versioned. The demos are rendered into the [cadranote-media](https://github.com/syl-craft/cadranote-media) repository, cloned next to this one.
+GitHub Actions checks every push and provides the ZIPs as an artifact. A `vX.Y.Z` tag publishes to the Chrome, Firefox and Edge stores: see [Publishing](docs/PUBLICATION.md) (French). Generated bundles are not versioned. The demos are rendered into the [cadranote-media](https://github.com/syl-craft/cadranote-media) repository, cloned next to this one.
 
 [Architecture](ARCHITECTURE.md) (French) · [Visual identity](docs/IDENTITY.md) (French) · [Demo page](docs/demo.html)
