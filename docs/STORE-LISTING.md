@@ -84,7 +84,7 @@ Chrome interdit aux extensions d’agir sur le Chrome Web Store : cette fiche se
 | Code source | Oui : `dist/cadranote-sources.zip` |
 | Nom, résumé, description | Communs |
 | Catégories | Outils de développement |
-| Licence | À choisir : le dépôt n’a pas encore de fichier `LICENSE` |
+| Licence | MIT (fichier `LICENSE`) |
 | Notes pour les relecteurs | `Build : Node 22, npm ci, npm run build. Le code bundlé (background.js, content.js, page-inspector.js) est produit par esbuild sans minification à partir de src/. Aucune donnée collectée, aucun code distant.` |
 
 ## Edge Add-ons

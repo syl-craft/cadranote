@@ -2,6 +2,7 @@
   "name": "cadranote",
   "version": "1.1.0",
   "private": true,
+  "license": "MIT",
   "description": "Extension Chrome de sélection HTML pour les assistants IA",
   "scripts": {
     "icons": "node scripts/generate-icons.mjs",
