@@ -45,6 +45,8 @@ function firefoxManifest({ background: { service_worker, ...background }, ...res
         strict_min_version: "140.0",
         data_collection_permissions: { required: ["none"] },
       },
+      // Firefox pour Android ne lit data_collection_permissions qu’à partir de la 142.
+      gecko_android: { strict_min_version: "142.0" },
     },
   };
 }

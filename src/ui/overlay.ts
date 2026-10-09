@@ -25,9 +25,17 @@ export function createOverlay(): Overlay {
   const stylesheet = document.createElement("style");
   stylesheet.textContent = panelStyles;
 
-  // Bundled template; do not interpolate page content.
-  root.innerHTML = panelMarkup;
-  root.querySelector(".logo")!.innerHTML = logoMarkup;
+  // Bundled templates; do not interpolate page content.
+  const parser = new DOMParser();
+  root.append(...parser.parseFromString(panelMarkup, "text/html").body.childNodes);
+  root
+    .querySelector(".logo")!
+    .append(
+      document.importNode(
+        parser.parseFromString(logoMarkup, "image/svg+xml").documentElement,
+        true,
+      ),
+    );
   root.prepend(stylesheet);
   document.documentElement.append(host);
 
