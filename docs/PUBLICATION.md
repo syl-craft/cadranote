@@ -38,6 +38,8 @@ Avant l'envoi Firefox, tester l'extension dans Firefox (`about:debugging` › Ce
 
 ## Identifiants
 
+Les noms attendus et leur emplacement dans Vaultwarden sont listés dans [`.github/stores.vars.vault`](../.github/stores.vars.vault) et [`.github/stores.secrets.vault`](../.github/stores.secrets.vault).
+
 La commande interactive de l'outil guide la création de chaque identifiant :
 
 ```sh

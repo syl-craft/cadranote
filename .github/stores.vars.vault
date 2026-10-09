@@ -1,0 +1,10 @@
+# github-variables repo=${owner}/${project} environment=stores
+# Références Vaultwarden des variables du workflow Publication, sans aucune valeur.
+@owner = syl-craft
+@project = cadranote
+@item = syl-craft-web-store-apps
+CHROME_EXTENSION_ID={{ bw:${item}:cadranote-CHROME_EXTENSION_ID }}
+CHROME_PUBLISHER_ID={{ bw:${item}:cadranote-CHROME_PUBLISHER_ID }}
+CHROME_SERVICE_ACCOUNT_CLIENT_EMAIL={{ bw:${item}:CHROME_SERVICE_ACCOUNT_CLIENT_EMAIL }}
+FIREFOX_EXTENSION_ID={{ bw:${item}:cadranote-FIREFOX_EXTENSION_ID }}
+EDGE_PRODUCT_ID={{ bw:${item}:cadranote-EDGE_PRODUCT_ID }}
