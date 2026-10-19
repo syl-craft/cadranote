@@ -36,12 +36,47 @@ Fonctionnalités
 • Éléments de référence : montrez l’exemple à suivre, numérotés en vert.
 • Indices de composants React, Vue et Angular et classes Tailwind, quand la page les expose.
 • Panneau déplaçable, thème clair ou sombre selon votre système.
+• Interface en français ou en anglais, selon votre navigateur ou au choix dans les options.
 
 Confidentialité
 Tout se passe dans votre navigateur. Cadranote ne collecte aucune donnée, n’envoie rien à un serveur ni à une IA et ne garde aucun historique : le contexte est copié dans votre presse-papiers, et vous choisissez où le coller.
 
 Code source : https://github.com/syl-craft/cadranote
 ```
+
+### Fiche en anglais
+
+Nom repris du manifeste : `Cadranote — Target for AI`.
+
+Résumé :
+
+```text
+Select an element and copy its CSS selector, HTML path and context for an AI.
+```
+
+Description :
+
+```text
+Cadranote turns what you see on a page into a precise prompt for your AI assistant.
+
+Click the icon or press Alt+C, then point at an element on the page: Cadranote shows its unique CSS selector, its HTML path and an excerpt of its code. Describe the change you want, add reference elements if needed, then copy everything in one click and paste it into ChatGPT, Claude, Copilot or any other assistant.
+
+Features
+• Hover selection: each element is outlined with its dimensions, one click targets it.
+• Unique CSS selector, HTML path and excerpt of the rendered DOM.
+• Your request travels with the targeted element: the AI knows exactly what you mean.
+• Reference elements: show the example to follow, numbered in green.
+• React, Vue and Angular component hints and Tailwind classes, when the page exposes them.
+• Movable panel, light or dark theme following your system.
+• Interface in English or French, following your browser or chosen in the options.
+
+Privacy
+Everything happens in your browser. Cadranote collects no data, sends nothing to a server or an AI and keeps no history: the context is copied to your clipboard, and you choose where to paste it.
+
+Source code: https://github.com/syl-craft/cadranote
+```
+
+Termes de recherche Edge : `CSS selector`, `AI`, `ChatGPT`, `inspector`, `HTML`, `developer`, `prompt`.
 
 ### Images
 
