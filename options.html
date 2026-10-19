@@ -3,18 +3,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-i18n="optionsTitle">Cadranote — Options</title>
-<link rel="stylesheet" href="help.css">
-<body class="options">
-<main>
+<link rel="stylesheet" href="options.css">
+<body>
+<main class="card">
+  <header>
+    <svg class="logo" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="cadranote-mark" x1="18" y1="17" x2="44" y2="49" gradientUnits="userSpaceOnUse">
+          <stop class="mark-start"/>
+          <stop class="mark-end" offset="1"/>
+        </linearGradient>
+      </defs>
+      <rect class="tile" x="1" y="1" width="62" height="62" rx="15" stroke-width="2"/>
+      <path d="M43 18H29C21 18 17 23 17 32C17 41 21 46 29 46H43" stroke="url(#cadranote-mark)" stroke-width="7" stroke-linecap="round"/>
+      <path class="lines" d="M31 28H48M31 36H43" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <h1>Cadranote</h1>
+      <div class="subtitle" data-i18n="panelSubtitle"></div>
+    </div>
+  </header>
   <form id="options">
     <fieldset>
-      <legend data-i18n="languageLegend"></legend>
-      <label><input type="radio" name="language" value="auto"> <span data-i18n="languageAuto"></span></label>
-      <label><input type="radio" name="language" value="fr"> <span lang="fr">Français</span></label>
-      <label><input type="radio" name="language" value="en"> <span lang="en">English</span></label>
+      <legend><span class="step">01</span> <span data-i18n="languageLegend"></span></legend>
+      <label class="choice"><input type="radio" name="language" value="auto"> <span data-i18n="languageAuto"></span></label>
+      <label class="choice"><input type="radio" name="language" value="fr"> <span lang="fr">Français</span></label>
+      <label class="choice"><input type="radio" name="language" value="en"> <span lang="en">English</span></label>
     </fieldset>
-    <p data-i18n="languageHelp"></p>
-    <p id="saved" role="status" aria-live="polite"></p>
+    <p class="help" data-i18n="languageHelp"></p>
+    <p id="saved" class="feedback" role="status" aria-live="polite"></p>
   </form>
 </main>
 <script src="options.js"></script>

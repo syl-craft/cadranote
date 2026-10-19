@@ -4,7 +4,7 @@
 
 Le [logo](../src/ui/logo.svg) associe un C bleu à deux lignes de note. Le panneau s’inspire du thème [Digital Banking](https://uupm.cc/demo/digital-banking).
 
-Le panneau et la page d’aide suivent le thème clair ou sombre du système (`prefers-color-scheme`).
+Le panneau, la page d’aide et les options suivent le thème clair ou sombre du système (`prefers-color-scheme`). Les options reprennent les jetons et l’en-tête du panneau ([options.css](../options.css)).
 
 | Rôle | Sombre | Clair |
 | --- | --- | --- |

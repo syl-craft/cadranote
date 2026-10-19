@@ -15,6 +15,7 @@ const EXTENSION_FILES = [
   "unavailable.js",
   "options.html",
   "options.js",
+  "options.css",
   "help.css",
   "icons",
   "_locales",
