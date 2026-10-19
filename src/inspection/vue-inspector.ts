@@ -1,4 +1,5 @@
 import type { ComponentInfo, Inspection } from "./model";
+import { UNNAMED_COMPONENT } from "../domain/inspection";
 import { metadataText, parentElement, read } from "./read-metadata";
 
 function vueInstance(element: Element): unknown {
@@ -37,7 +38,7 @@ export function inspectVue(element: Element): ComponentInfo | null {
       metadataText(read(type, "name")) ??
       metadataText(read(type, "__name")) ??
       metadataText(read(type, "_componentTag"));
-    if (type) hierarchy.push(name ?? "(composant sans nom exposé)");
+    if (type) hierarchy.push(name ?? UNNAMED_COMPONENT);
     source ??= metadataText(read(type, "__file"));
     instance = read(instance, "parent") ?? read(instance, "$parent");
   }

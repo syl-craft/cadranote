@@ -4,6 +4,7 @@ import type { CopyKind } from "../export/prepare-copy";
 import { requireElement } from "./query-element";
 import { inspectionText } from "../inspection/model";
 import { installPanelDrag } from "./panel-drag";
+import { t } from "../i18n/i18n";
 
 export type PanelAction =
   | { type: "request-changed"; instruction: string }
@@ -16,6 +17,9 @@ export type PanelAction =
   | { type: "change-target" }
   | { type: "select-parent" }
   | { type: "copy"; kind: CopyKind }
+  | { type: "review-opened" }
+  | { type: "review-postponed" }
+  | { type: "review-declined" }
   | { type: "close" };
 
 export interface PanelViewModel {
@@ -32,6 +36,7 @@ export class RequestPanel {
   private readonly supplementsList: HTMLUListElement;
   private readonly feedback: HTMLDivElement;
   private readonly copyFallback: HTMLDivElement;
+  private readonly review: HTMLDivElement;
 
   constructor(
     private readonly root: ShadowRoot,
@@ -43,6 +48,7 @@ export class RequestPanel {
     this.supplementsList = requireElement(root, "#attachment-list", HTMLUListElement);
     this.feedback = requireElement(root, ".feedback", HTMLDivElement);
     this.copyFallback = requireElement(root, "#copy-fallback", HTMLDivElement);
+    this.review = requireElement(root, "#review", HTMLDivElement);
 
     this.bindActions(onAction);
     installPanelDrag(this.panel, this.listeners.signal);
@@ -92,11 +98,20 @@ export class RequestPanel {
     this.clearCopyFallback();
     const textarea = document.createElement("textarea");
     textarea.id = "manual-copy";
-    textarea.setAttribute("aria-label", "Texte à copier manuellement");
+    textarea.setAttribute("aria-label", t().manualCopyLabel);
     textarea.value = text;
     this.copyFallback.append(textarea);
     textarea.focus();
     textarea.select();
+  }
+
+  showReviewInvitation(reviewUrl: string): void {
+    requireElement(this.root, "#review-open", HTMLAnchorElement).href = reviewUrl;
+    this.review.hidden = false;
+  }
+
+  hideReviewInvitation(): void {
+    this.review.hidden = true;
   }
 
   dispose(): void {
@@ -105,29 +120,21 @@ export class RequestPanel {
 
   private renderStatus(session: SessionState): void {
     if (session.phase === "selecting-supplement") {
-      this.setText("#status", "Ajout d’un élément supplémentaire");
-      this.setText(
-        "#hint",
-        "Cliquez sur l’élément à ajouter. Le principal et votre demande sont conservés. Échap pour annuler l’ajout.",
-      );
+      this.setText("#status", t().statusSelectingSupplement);
+      this.setText("#hint", t().hintSelectingSupplement);
       return;
     }
 
     if (!session.primary) {
-      this.setText("#status", "Sélection de l’élément principal");
-      this.setText(
-        "#hint",
-        "Survolez la page, puis cliquez sur l’élément principal. Échap pour quitter.",
-      );
+      this.setText("#status", t().statusSelectingPrimary);
+      this.setText("#hint", t().hintSelectingPrimary);
       return;
     }
 
-    this.setText("#status", "Élément principal sélectionné");
+    this.setText("#status", t().statusPrimarySelected);
     this.setText(
       "#hint",
-      session.primary.description.iframe
-        ? "Cadre iframe sélectionné. Son contenu interne n’est pas accessible depuis ce sélecteur."
-        : "Rédigez votre demande, puis ajoutez des éléments supplémentaires si nécessaire.",
+      session.primary.description.iframe ? t().hintIframe : t().hintPrimarySelected,
     );
   }
 
@@ -136,16 +143,14 @@ export class RequestPanel {
     this.setText("#meta", `${description.label} · ${description.dimensions}`);
     this.setText(
       "#selector-label",
-      description.chain.length > 1
-        ? "Sélecteurs Shadow DOM (>>> = traversée)"
-        : "Sélecteur CSS unique",
+      description.chain.length > 1 ? t().shadowSelectorsLabel : t().uniqueSelectorLabel,
     );
     this.setText("#selector", description.selector);
     this.setText("#path", description.path);
     this.setText("#html", description.html);
     this.setText(
       "#inspection",
-      primary.inspection ? inspectionText(primary.inspection) : "Inspection en cours…",
+      primary.inspection ? inspectionText(primary.inspection) : t().inspectionPending,
     );
   }
 
@@ -174,7 +179,7 @@ export class RequestPanel {
       locateButton.textContent =
         `${index + 1}. ${target.description.label}` +
         (target.description.text ? ` · ${target.description.text}` : "") +
-        (connectedIds.has(target.id) ? "" : " (disparu)");
+        (connectedIds.has(target.id) ? "" : t().disappearedSuffix);
 
       const removeButton = document.createElement("button");
       removeButton.dataset.remove = String(index);
@@ -187,7 +192,7 @@ export class RequestPanel {
       strokes.setAttribute("d", "m6 6 12 12M18 6 6 18");
       icon.append(strokes);
       removeButton.append(icon);
-      removeButton.setAttribute("aria-label", `Retirer l’élément ${index + 1}`);
+      removeButton.setAttribute("aria-label", t().removeSupplement(index + 1));
       row.append(locateButton, removeButton);
       return row;
     });
@@ -221,11 +226,19 @@ export class RequestPanel {
       ["#copy-content", { type: "copy", kind: "content" }],
       ["#copy-html", { type: "copy", kind: "html" }],
       ["#copy-selector", { type: "copy", kind: "selector" }],
+      ["#review-later", { type: "review-postponed" }],
+      ["#review-never", { type: "review-declined" }],
     ];
 
     for (const [selector, action] of actions) {
       this.button(selector).addEventListener("click", () => onAction(action), { signal });
     }
+
+    requireElement(this.root, "#review-open", HTMLAnchorElement).addEventListener(
+      "click",
+      () => onAction({ type: "review-opened" }),
+      { signal },
+    );
 
     this.instruction.addEventListener(
       "input",

@@ -6,6 +6,8 @@ playwright-report/
 /content.js
 /background.js
 /page-inspector.js
+/options.js
+/unavailable.js
 /tests/preview*.png
 coverage/
 *.log

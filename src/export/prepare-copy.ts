@@ -4,6 +4,7 @@ import { ElementRegistry } from "../dom/element-registry";
 import { extractFullText } from "../dom/extract-content";
 import { formatRequestContext } from "./format-context";
 import type { ContextEntry } from "./format-context";
+import { t } from "../i18n/i18n";
 
 export type CopyKind = "request" | "supplements" | "content" | "html" | "selector";
 export type PreparedCopy =
@@ -15,7 +16,7 @@ export function prepareCopy(
   session: SessionState,
   registry: ElementRegistry,
 ): PreparedCopy {
-  if (!session.primary) return { ok: false, message: "Sélectionnez un élément principal." };
+  if (!session.primary) return { ok: false, message: t().noPrimary };
 
   if (kind === "request" || kind === "supplements") {
     return prepareContextCopy(kind, session, registry);
@@ -23,7 +24,7 @@ export function prepareCopy(
 
   const primaryElement = registry.resolve(session.primary.id);
   if (!primaryElement?.isConnected) {
-    return { ok: false, message: "Cet élément a disparu. Sélectionnez-le à nouveau." };
+    return { ok: false, message: t().primaryDisappeared };
   }
 
   const description = registry.refresh(session.primary).description;
@@ -32,13 +33,13 @@ export function prepareCopy(
     case "content": {
       const text = extractFullText(primaryElement);
       return text
-        ? { ok: true, text, confirmation: "Contenu copié. Collez-le avec Ctrl+V." }
-        : { ok: false, message: "Cet élément ne contient pas de texte à copier." };
+        ? { ok: true, text, confirmation: t().contentCopied }
+        : { ok: false, message: t().noTextToCopy };
     }
     case "html":
-      return { ok: true, text: description.html, confirmation: "Extrait HTML copié." };
+      return { ok: true, text: description.html, confirmation: t().htmlCopied };
     case "selector":
-      return { ok: true, text: description.selector, confirmation: "Sélecteur copié." };
+      return { ok: true, text: description.selector, confirmation: t().selectorCopied };
   }
 }
 
@@ -49,27 +50,24 @@ function prepareContextCopy(
 ): PreparedCopy {
   const entries: ContextEntry[] = session.supplements.map((target, index) => ({
     target,
-    role: `Élément supplémentaire ${index + 1}`,
+    role: t().supplementRole(index + 1),
     isConnected: registry.isConnected(target.id),
   }));
 
   if (kind === "request") {
     entries.unshift({
       target: registry.refresh(session.primary),
-      role: "Élément principal",
+      role: t().primaryRole,
       isConnected: registry.isConnected(session.primary.id),
     });
   }
 
-  if (!entries.length)
-    return { ok: false, message: "La liste des éléments supplémentaires est vide." };
+  if (!entries.length) return { ok: false, message: t().emptySupplementList };
 
   return {
     ok: true,
     text: formatRequestContext(entries, session.instruction),
     confirmation:
-      kind === "request"
-        ? `Contexte copié : le principal et ${session.supplements.length} élément(s) supplémentaire(s).`
-        : "Éléments attachés copiés. Collez-les dans votre IA.",
+      kind === "request" ? t().contextCopied(session.supplements.length) : t().supplementsCopied,
   };
 }

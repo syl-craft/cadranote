@@ -2,6 +2,9 @@ node_modules/
 .test-build/
 content.js
 background.js
+page-inspector.js
+options.js
+unavailable.js
 package-lock.json
 *.zip
 dist/

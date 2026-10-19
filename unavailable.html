@@ -2,14 +2,15 @@
 <html lang="fr">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cadranote — Page indisponible</title>
+<title data-i18n="unavailableTitle">Cadranote — Page indisponible</title>
 <link rel="stylesheet" href="help.css">
 <main>
   <span class="eyebrow">CADRANOTE</span>
-  <h1>La sélection n’est pas disponible sur cette page.</h1>
-  <p>Chrome empêche les extensions d’inspecter ses pages internes (<code>chrome://</code>), le Chrome Web Store et certaines pages protégées, dont son lecteur PDF.</p>
-  <p>Ouvrez une page web classique ou votre application sur <code>localhost</code>, puis cliquez à nouveau sur l’icône de l’extension.</p>
-  <p>Pour un fichier HTML local, activez <strong>Autoriser l’accès aux URL de fichier</strong> dans les détails de Cadranote sur <code>chrome://extensions</code>.</p>
-  <p>Si le problème persiste sur une page ordinaire, rechargez-la puis réessayez.</p>
+  <h1 data-i18n="unavailableHeading">La sélection n’est pas disponible sur cette page.</h1>
+  <p><span data-i18n="unavailableBrowserBefore">Le navigateur empêche les extensions d’inspecter ses pages internes (</span><code>chrome://</code><span data-i18n="unavailableBrowserAfter">), sa boutique d’extensions et certaines pages protégées, dont son lecteur PDF.</span></p>
+  <p><span data-i18n="unavailableRegularBefore">Ouvrez une page web classique ou votre application sur </span><code>localhost</code><span data-i18n="unavailableRegularAfter">, puis cliquez à nouveau sur l’icône de l’extension.</span></p>
+  <p><span data-i18n="unavailableFileBefore">Pour un fichier HTML local, activez </span><strong data-i18n="unavailableFileOption">Autoriser l’accès aux URL de fichier</strong><span data-i18n="unavailableFileMiddle"> dans les détails de Cadranote sur </span><code>chrome://extensions</code><span data-i18n="unavailableFileAfter">.</span></p>
+  <p data-i18n="unavailableRetry">Si le problème persiste sur une page ordinaire, rechargez-la puis réessayez.</p>
 </main>
+<script src="unavailable.js"></script>
 </html>

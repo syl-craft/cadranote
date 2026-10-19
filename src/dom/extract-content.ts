@@ -1,3 +1,5 @@
+import { t } from "../i18n/i18n";
+
 const EXCLUDED_TAGS = new Set(["script", "style", "noscript", "html-locator-overlay"]);
 const EXCLUDED_TEXT_SELECTOR =
   "input, textarea, select, script, style, noscript, html-locator-overlay";
@@ -10,7 +12,7 @@ export function extractHtmlPreview(element: Element): string {
   let remainingNodes = HTML_NODE_LIMIT;
 
   function copyNode(node: Node, depth: number): Node | null {
-    if (remainingNodes-- <= 0) return document.createComment(" extrait tronqué ");
+    if (remainingNodes-- <= 0) return document.createComment(t().htmlTruncated);
 
     if (node.nodeType === Node.TEXT_NODE) {
       return document.createTextNode((node.textContent ?? "").slice(0, 400));
@@ -31,7 +33,7 @@ export function extractHtmlPreview(element: Element): string {
 
     for (const child of node.childNodes) {
       if (remainingNodes <= 0) {
-        copiedElement.append(document.createComment(" extrait tronqué "));
+        copiedElement.append(document.createComment(t().htmlTruncated));
         break;
       }
 
@@ -44,10 +46,10 @@ export function extractHtmlPreview(element: Element): string {
 
   const copiedElement = copyNode(element, 0);
   const html =
-    copiedElement instanceof Element ? copiedElement.outerHTML : "<!-- contenu non exporté -->";
+    copiedElement instanceof Element ? copiedElement.outerHTML : `<!-- ${t().htmlNotExported} -->`;
 
   return html.length > HTML_CHARACTER_LIMIT
-    ? `${html.slice(0, HTML_CHARACTER_LIMIT)}\n<!-- extrait tronqué -->`
+    ? `${html.slice(0, HTML_CHARACTER_LIMIT)}\n<!--${t().htmlTruncated}-->`
     : html;
 }
 

@@ -1,4 +1,5 @@
 import type { Inspection } from "../domain/inspection";
+import { t } from "../i18n/i18n";
 export type { Inspection, ComponentInfo } from "../domain/inspection";
 
 export const unavailableInspection: Inspection = {
@@ -8,40 +9,28 @@ export const unavailableInspection: Inspection = {
 };
 
 export function inspectionText(inspection: Inspection): string {
+  const messages = t();
   const lines = inspection.components.map(
     ({ framework, hierarchy, source }) =>
-      `${framework} : ${hierarchy.join(" → ")}${source ? `\nSource exposée : ${source}` : ""}`,
+      `${framework}${messages.colon}${hierarchy.join(" → ")}${source ? `\n${messages.exposedSource}${messages.colon}${source}` : ""}`,
   );
   if (inspection.vue && !inspection.components.some(({ framework }) => framework === "Vue")) {
-    lines.push(
-      inspection.vue.scope === "element"
-        ? "Indices Vue.js sur cet élément ou ses parents ; les noms de composants ne sont pas exposés."
-        : "Indices Vue.js sur la page ; le lien avec cet élément n’est pas établi.",
-    );
+    lines.push(inspection.vue.scope === "element" ? messages.vueOnElement : messages.vueOnPage);
   }
   if (
     inspection.angular &&
     !inspection.components.some(({ framework }) => framework === "Angular")
   ) {
     lines.push(
-      inspection.angular.scope === "element"
-        ? "Indices Angular sur cet élément ou ses parents."
-        : "Angular détecté sur la page ; le lien avec cet élément n’est pas établi.",
+      inspection.angular.scope === "element" ? messages.angularOnElement : messages.angularOnPage,
     );
     lines.push(
-      inspection.angular.debugAvailable
-        ? "Aucun nom de composant Angular accessible pour cet élément."
-        : "Les API de débogage Angular ne sont pas exposées, comme souvent en production. Le nom du composant et son fichier source ne sont pas accessibles.",
+      inspection.angular.debugAvailable ? messages.angularNoName : messages.angularNoDebug,
     );
   }
-  if (!lines.length && inspection.available)
-    lines.push(
-      "Aucun nom de composant accessible pour cet élément. Cela ne signifie pas que la page n’utilise aucun framework.",
-    );
+  if (!lines.length && inspection.available) lines.push(messages.noComponentName);
   if (inspection.utilities.length)
-    lines.push(
-      `Classes compatibles Tailwind (indice, non confirmé) : ${inspection.utilities.join(" ")}`,
-    );
-  if (!inspection.available) lines.push("Inspection des composants indisponible.");
+    lines.push(`${messages.tailwindClasses}${messages.colon}${inspection.utilities.join(" ")}`);
+  if (!inspection.available) lines.push(messages.inspectionUnavailable);
   return lines.join("\n");
 }

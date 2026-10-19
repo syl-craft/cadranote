@@ -1,0 +1,8 @@
+{
+  "extensionName": { "message": "Cadranote — Cibler pour une IA" },
+  "extensionDescription": {
+    "message": "Sélectionnez un élément et copiez son sélecteur CSS, son chemin HTML et son contexte pour une IA."
+  },
+  "actionTitle": { "message": "Sélectionner un élément HTML (Alt+C)" },
+  "commandDescription": { "message": "Sélectionner un élément HTML" }
+}

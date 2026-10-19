@@ -1,0 +1,8 @@
+{
+  "extensionName": { "message": "Cadranote — Target for AI" },
+  "extensionDescription": {
+    "message": "Select an element and copy its CSS selector, HTML path and context for an AI."
+  },
+  "actionTitle": { "message": "Select an HTML element (Alt+C)" },
+  "commandDescription": { "message": "Select an HTML element" }
+}

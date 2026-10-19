@@ -21,16 +21,16 @@ In `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** an
 
 ## Use
 
-The interface is in French; button labels are quoted as they appear, with a translation.
-
 1. Click the extension or press **Alt+C**.
 2. Select the main element and write your request.
 3. Add reference elements if needed.
-4. Click **Copier le contexte pour une IA** (copy the context for an AI), then paste it into your assistant.
+4. Click **Copy the context for an AI**, then paste it into your assistant.
 
-**Changer de cible** (change target) clears the elements but keeps your request. Copying the content, HTML or selector applies to the main element only. **Esc** cancels an addition or closes the panel.
+**Change target** clears the elements but keeps your request. Copying the content, HTML or selector applies to the main element only. **Esc** cancels an addition or closes the panel.
 
 To reach an element hidden by the panel, drag its header. The double-arrow button also moves it to the top or bottom right.
+
+The interface and the copied context follow the browser language (French or English, English otherwise). To choose another one, open the extension **Options**.
 
 Extension already installed: if Chrome keeps the old shortcut, assign **Alt+C** in `chrome://extensions/shortcuts`.
 
@@ -60,7 +60,7 @@ Extension already installed: if Chrome keeps the old shortcut, assign **Alt+C** 
 
 - React, Vue and Angular: component information when available. Tailwind: hints based on class names. Detection is limited in production builds.
 - Open Shadow DOM is supported; iframe contents and protected Chrome pages are excluded.
-- Everything runs locally: nothing is sent to an AI, no history is kept. Closing the panel or reloading the page clears the session.
+- Everything runs locally: nothing is sent to an AI, no history is kept. Closing the panel or reloading the page clears the session. The browser only keeps the language setting and a copy counter used to suggest leaving a review, once.
 - Copied content comes from the page: review it before sharing.
 
 ## Develop

@@ -14,6 +14,13 @@ import { RequestPanel } from "../ui/panel";
 import type { PanelAction } from "../ui/panel";
 import type { TargetSnapshot } from "../domain/target";
 import { requestInspection } from "../inspection/client";
+import { t } from "../i18n/i18n";
+import {
+  countContextCopy,
+  finishReviewInvitation,
+  postponeReviewInvitation,
+} from "./review-invitation";
+import { reviewPageUrl } from "../platform/store-links";
 
 export interface RuntimeSnapshot {
   readonly version: 1;
@@ -99,11 +106,11 @@ export class SessionController {
         return;
       case "remove-supplement":
         this.dispatch({ type: "supplement-removed", targetId: action.targetId });
-        this.panel.showFeedback("Élément retiré.");
+        this.panel.showFeedback(t().supplementRemoved);
         return;
       case "clear-supplements":
         this.dispatch({ type: "supplements-cleared" });
-        this.panel.showFeedback("Liste vidée.");
+        this.panel.showFeedback(t().supplementsCleared);
         return;
       case "change-target":
         this.dispatch({ type: "target-reset" });
@@ -117,6 +124,15 @@ export class SessionController {
       case "copy":
         void this.copy(action.kind);
         return;
+      case "review-opened":
+      case "review-declined":
+        this.panel.hideReviewInvitation();
+        void finishReviewInvitation();
+        return;
+      case "review-postponed":
+        this.panel.hideReviewInvitation();
+        void postponeReviewInvitation();
+        return;
       case "close":
         this.close();
         return;
@@ -129,18 +145,13 @@ export class SessionController {
     const addingSupplement = this.state.phase === "selecting-supplement";
 
     if (addingSupplement && containsTarget(this.state, target.id)) {
-      this.panel.showFeedback(
-        "Cet élément est déjà le principal ou figure dans la liste. Choisissez un autre élément.",
-      );
+      this.panel.showFeedback(t().alreadySelected);
       return;
     }
 
     this.dispatch({ type: "element-selected", target });
     this.inspectTarget(target);
-    if (addingSupplement)
-      this.panel.showFeedback(
-        "Élément supplémentaire ajouté. Le principal et votre demande sont conservés.",
-      );
+    if (addingSupplement) this.panel.showFeedback(t().supplementAdded);
   }
 
   private selectPrimaryParent(): void {
@@ -172,15 +183,13 @@ export class SessionController {
   private locateSupplement(targetId: string): void {
     const element = this.registry.resolve(targetId);
     if (!element?.isConnected) {
-      this.panel.showFeedback(
-        "Cet élément a disparu. Son instantané reste disponible dans la copie groupée.",
-      );
+      this.panel.showFeedback(t().supplementDisappeared);
       return;
     }
 
     this.dispatch({ type: "supplement-cancelled" });
     element.scrollIntoView({ block: "center", inline: "nearest" });
-    this.panel.showFeedback("Élément supplémentaire repéré. L’élément principal reste inchangé.");
+    this.panel.showFeedback(t().supplementLocated);
   }
 
   private handleEscape(): void {
@@ -255,19 +264,23 @@ export class SessionController {
       this.panel.clearCopyFallback();
       await writeClipboard(prepared.text, this.overlay.root, this.lifetime.signal);
       if (this.isCurrentCopy(sequence)) this.panel.showFeedback(prepared.confirmation);
+      if (kind === "request") void this.countCopyForReview();
     } catch (error) {
       if (!this.isCurrentCopy(sequence)) return;
 
       if (textToCopy !== null) {
-        this.panel.showFeedback("Copie indisponible. Copiez manuellement le texte ci-dessous.");
+        this.panel.showFeedback(t().manualCopyNeeded);
         this.panel.showManualCopy(textToCopy);
       } else {
         console.warn("Cadranote : préparation du contexte impossible", error);
-        this.panel.showFeedback(
-          "Impossible de préparer ce contexte. Sélectionnez à nouveau l’élément.",
-        );
+        this.panel.showFeedback(t().contextUnavailable);
       }
     }
+  }
+
+  private async countCopyForReview(): Promise<void> {
+    if ((await countContextCopy()) && !this.lifetime.signal.aborted)
+      this.panel.showReviewInvitation(reviewPageUrl());
   }
 
   private isCurrentCopy(sequence: number): boolean {

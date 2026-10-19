@@ -23,10 +23,27 @@ after(async () => {
     server.closeAllConnections();
   });
 });
-async function setup(t, ui = false) {
+// Replaces the extension storage, absent from a regular page.
+const stubSource = `window.stubExtensionStorage = (data) => {
+  window.storedData = data;
+  Object.defineProperty(window, "chrome", {
+    configurable: true,
+    value: {
+      runtime: { getURL: (path) => "chrome-extension://test/" + path },
+      storage: {
+        local: {
+          get: async (key) => ({ [key]: window.storedData[key] }),
+          set: async (values) => Object.assign(window.storedData, values),
+        },
+      },
+    },
+  });
+};`;
+async function setup(t, ui = false, { locale = "fr-FR", beforeUi } = {}) {
   const context = await browser.newContext({
     viewport: { width: 1440, height: 1000 },
     permissions: ["clipboard-read", "clipboard-write"],
+    locale,
   });
   t.after(() => context.close());
   const page = await context.newPage();
@@ -41,6 +58,10 @@ async function setup(t, ui = false) {
     };
   });
   await page.addScriptTag({ path: path.join(root, ".test-build", "locator.js") });
+  if (beforeUi) {
+    await page.addScriptTag({ content: stubSource });
+    await page.evaluate(beforeUi);
+  }
   if (ui) await page.addScriptTag({ path: path.join(root, "content.js") });
   return page;
 }
@@ -688,9 +709,53 @@ test("Vue inline anonymous roots and production mount containers remain identifi
     };
   });
   assert.equal(result.vue2.components[0].framework, "Vue");
-  assert.deepEqual(result.vue2.components[0].hierarchy, ["(composant sans nom exposé)"]);
+  assert.deepEqual(result.vue2.components[0].hierarchy, ["(unnamed)"]);
   assert.deepEqual(result.vue3.components[0].hierarchy, ["InlineEditor"]);
   assert.deepEqual(result.marker.vue, { scope: "element" });
   assert.deepEqual(result.marker.components, []);
   assert.deepEqual(result.outside.vue, { scope: "page" });
+});
+
+test("an English browser gets the panel and the AI context in English", async (t) => {
+  const page = await setup(t, true, { locale: "en-US" });
+  assert.equal(
+    await page.evaluate(() => testUI.querySelector("#copy-ai").textContent.trim()),
+    "Copy the context for an AI",
+  );
+  await page.locator('[data-testid="buy-essential"]').click();
+  const context = await copyFrom(page, "#copy-ai", "Context copied");
+  assert.match(context, /## Main element/);
+  assert.match(context, /HTML path: /);
+  assert.match(context, /Requested change: \[to be completed\]/);
+});
+
+test("the stored language setting overrides the browser language", async (t) => {
+  const page = await setup(t, true, {
+    locale: "en-US",
+    beforeUi: () => stubExtensionStorage({ language: "fr" }),
+  });
+  await page.waitForFunction(() => window.testUI?.querySelector("#copy-ai"));
+  assert.equal(
+    await page.evaluate(() => testUI.querySelector("#copy-ai").textContent.trim()),
+    "Copier le contexte pour une IA",
+  );
+});
+
+test("the review invitation appears once due, links to the store and can be declined", async (t) => {
+  const page = await setup(t, true, {
+    beforeUi: () =>
+      stubExtensionStorage({
+        reviewPrompt: { copies: 4, dueAfterCopies: 5, dueAfterTime: 0, finished: false },
+      }),
+  });
+  await page.locator('[data-testid="buy-essential"]').click();
+  await copyFrom(page, "#copy-ai", "Contexte copié");
+  await page.waitForFunction(() => !testUI.querySelector("#review").hidden);
+  assert.match(
+    await page.evaluate(() => testUI.querySelector("#review-open").href),
+    /chromewebstore\.google\.com\/detail\/khmlkbonkmhahppkbpcgamcbjdjhlpmk\/reviews/,
+  );
+  await uiClick(page, "#review-never");
+  assert.equal(await page.evaluate(() => testUI.querySelector("#review").hidden), true);
+  await page.waitForFunction(() => window.storedData.reviewPrompt.finished === true);
 });

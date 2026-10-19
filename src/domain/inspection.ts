@@ -1,3 +1,6 @@
+/** Sent by the page inspector, which has no access to the interface language. */
+export const UNNAMED_COMPONENT = "(unnamed)";
+
 export interface ComponentInfo {
   readonly framework: "React" | "Vue" | "Angular";
   readonly hierarchy: readonly string[];

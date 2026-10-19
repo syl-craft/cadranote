@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="optionsTitle">Cadranote — Options</title>
+<link rel="stylesheet" href="help.css">
+<body class="options">
+<main>
+  <form id="options">
+    <fieldset>
+      <legend data-i18n="languageLegend"></legend>
+      <label><input type="radio" name="language" value="auto"> <span data-i18n="languageAuto"></span></label>
+      <label><input type="radio" name="language" value="fr"> <span lang="fr">Français</span></label>
+      <label><input type="radio" name="language" value="en"> <span lang="en">English</span></label>
+    </fieldset>
+    <p data-i18n="languageHelp"></p>
+    <p id="saved" role="status" aria-live="polite"></p>
+  </form>
+</main>
+<script src="options.js"></script>
+</body>
+</html>

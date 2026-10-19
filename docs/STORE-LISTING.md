@@ -68,6 +68,7 @@ Chrome interdit aux extensions d’agir sur le Chrome Web Store : cette fiche se
 | Objectif unique | `Sélectionner un élément d’une page web et copier son sélecteur, son HTML et une demande sous forme de contexte prêt à coller dans un assistant IA.` |
 | Justification `activeTab` | `Accéder à l’onglet actif uniquement lorsque l’utilisateur clique sur l’icône ou appuie sur Alt+C, pour y afficher le panneau de sélection.` |
 | Justification `scripting` | `Injecter le panneau de sélection dans l’onglet actif et lire, dans la page, les informations de composants (React, Vue, Angular) de l’élément choisi.` |
+| Justification `storage` | `Conserver localement la langue choisie dans les options et un compteur de copies servant à proposer une fois de laisser un avis. Aucun contenu de page n’est enregistré.` |
 | Justification `clipboardWrite` | `Copier le contexte (sélecteur, HTML, demande) dans le presse-papiers lorsque l’utilisateur clique sur un bouton de copie.` |
 | Code distant | Non, je n’utilise pas de code distant |
 | Données collectées | Aucune case cochée |

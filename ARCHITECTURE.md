@@ -12,7 +12,8 @@ Extension Chrome Manifest V3, TypeScript strict et esbuild.
 | `selection/`, `highlights/` | Sélection et surlignage |
 | `inspection/` | Adaptateurs React, Vue, Angular et analyse Tailwind |
 | `ui/` | Panneau dans un Shadow DOM fermé |
-| `export/`, `platform/` | Format du contexte et presse-papiers |
+| `export/`, `platform/` | Format du contexte, presse-papiers, stockage local et liens des stores |
+| `i18n/` | Textes français et anglais, choix de la langue |
 | `entrypoints/` | Activation et injection Chrome |
 
 Point d’entrée métier : [session-machine.ts](src/domain/session-machine.ts). Le [contrôleur](src/application/session-controller.ts) relie les transitions aux adaptateurs ; le domaine ne dépend ni du DOM ni de Chrome.
@@ -40,7 +41,8 @@ Les diagnostics restent dans le panneau. L’export IA contient uniquement les c
 
 - Noms explicites, fonctions courtes, données partagées en `readonly`.
 - Commentaires limités aux informations que le code n’exprime pas déjà.
-- Identifiants en anglais ; interface et documentation en français.
+- Identifiants en anglais ; documentation en français.
+- Interface et contexte copié en français ou en anglais : langue du navigateur, ou celle choisie dans les options. Les textes vivent dans `src/i18n/messages.ts` ; le HTML les reçoit par les attributs `data-i18n*`.
 - HTML, CSS et logique séparés ; formatage avec Prettier.
 
 Les tests couvrent les transitions et les parcours dans Chrome. Les métadonnées de frameworks sont testées sur des cas représentatifs, sans garantie pour toutes les versions. Le chargement réel de l’extension reste à vérifier manuellement.

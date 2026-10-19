@@ -12,8 +12,12 @@ const EXTENSION_FILES = [
   "content.js",
   "page-inspector.js",
   "unavailable.html",
+  "unavailable.js",
+  "options.html",
+  "options.js",
   "help.css",
   "icons",
+  "_locales",
 ];
 const FIREFOX_ID = "cadranote@syl-craft";
 

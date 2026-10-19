@@ -5,6 +5,8 @@ await build({
     content: "src/entrypoints/content.ts",
     background: "src/entrypoints/background.ts",
     "page-inspector": "src/entrypoints/page-inspector.ts",
+    options: "src/entrypoints/options.ts",
+    unavailable: "src/entrypoints/unavailable.ts",
   },
   outdir: ".",
   bundle: true,

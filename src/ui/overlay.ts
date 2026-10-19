@@ -1,6 +1,7 @@
 import panelMarkup from "./panel.html";
 import panelStyles from "./panel.css";
 import logoMarkup from "./logo.svg";
+import { translateTree } from "../i18n/i18n";
 
 export interface Overlay {
   readonly host: HTMLElement;
@@ -36,6 +37,7 @@ export function createOverlay(): Overlay {
         true,
       ),
     );
+  translateTree(root);
   root.prepend(stylesheet);
   document.documentElement.append(host);
 

@@ -6,6 +6,16 @@ import { transitionSession } from "../src/domain/session-machine";
 import type { TargetSnapshot } from "../src/domain/target";
 import { validateInspection } from "../src/inspection/client";
 import { inspectionText } from "../src/inspection/model";
+import {
+  finishReviewPrompt,
+  initialReviewPrompt,
+  isReviewPromptDue,
+  parseReviewPrompt,
+  postponeReviewPrompt,
+  recordContextCopy,
+} from "../src/domain/review-prompt";
+import { resolveLanguage, setLanguage } from "../src/i18n/i18n";
+import { formatRequestContext } from "../src/export/format-context";
 
 function target(id: string): TargetSnapshot {
   return {
@@ -182,4 +192,56 @@ test("late inspection cannot restore a removed or reselected target", () => {
     }),
     closed,
   );
+});
+
+const DAY = 24 * 60 * 60 * 1000;
+
+function copies(count: number, at: number, state = initialReviewPrompt) {
+  for (let index = 0; index < count; index++) state = recordContextCopy(state, at);
+  return state;
+}
+
+test("the review invitation waits for 5 copies and 3 days after the first one", () => {
+  const start = 1_000_000;
+  assert.equal(isReviewPromptDue(copies(4, start), start + 10 * DAY), false);
+  assert.equal(isReviewPromptDue(copies(5, start), start + 3 * DAY - 1), false);
+  assert.equal(isReviewPromptDue(copies(5, start), start + 3 * DAY), true);
+});
+
+test("postponing asks for 20 more copies and 30 more days; finishing stops for good", () => {
+  const start = 1_000_000;
+  const postponed = postponeReviewPrompt(copies(5, start), start + 3 * DAY);
+  assert.equal(isReviewPromptDue(copies(19, start, postponed), start + 40 * DAY), false);
+  assert.equal(isReviewPromptDue(copies(20, start, postponed), start + 33 * DAY - 1), false);
+  assert.equal(isReviewPromptDue(copies(20, start, postponed), start + 33 * DAY), true);
+  assert.equal(isReviewPromptDue(finishReviewPrompt(copies(9, start)), start + 99 * DAY), false);
+});
+
+test("a corrupted stored invitation falls back to safe values", () => {
+  assert.deepEqual(parseReviewPrompt("garbage"), initialReviewPrompt);
+  assert.deepEqual(parseReviewPrompt({ copies: -2, dueAfterTime: "x", finished: "yes" }), {
+    ...initialReviewPrompt,
+  });
+});
+
+test("the automatic language follows the first French or English browser language", () => {
+  assert.equal(resolveLanguage("auto", ["fr-CA", "en"]), "fr");
+  assert.equal(resolveLanguage("auto", ["de-DE", "en-GB", "fr"]), "en");
+  assert.equal(resolveLanguage("auto", ["de-DE", "fr"]), "fr");
+  assert.equal(resolveLanguage("auto", ["ja"]), "en");
+  assert.equal(resolveLanguage("fr", ["en-US"]), "fr");
+});
+
+test("the AI context is written in the interface language", () => {
+  const entries = [{ target: principal, role: "Main element", isConnected: true }];
+  setLanguage("en");
+  try {
+    const context = formatRequestContext(entries, "");
+    assert.match(context, /^1 HTML elements to target/);
+    assert.match(context, /CSS selector: #principal/);
+    assert.match(context, /Requested change: \[to be completed\]/);
+  } finally {
+    setLanguage("fr");
+  }
+  assert.match(formatRequestContext(entries, ""), /Sélecteur CSS : #principal/);
 });

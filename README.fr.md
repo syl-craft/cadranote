@@ -30,6 +30,8 @@ Dans `chrome://extensions`, activez **Mode développeur**, cliquez sur **Charger
 
 Pour atteindre un élément masqué par le panneau, faites glisser son en-tête. Le bouton à double flèche permet aussi de le replacer en haut ou en bas à droite.
 
+L’interface et le contexte copié suivent la langue du navigateur (français ou anglais, l’anglais à défaut). Pour en choisir une autre, ouvrez les **Options** de l’extension.
+
 Extension déjà installée : si Chrome conserve l’ancien raccourci, attribuez **Alt+C** dans `chrome://extensions/shortcuts`.
 
 ## En images
@@ -58,7 +60,7 @@ Extension déjà installée : si Chrome conserve l’ancien raccourci, attribuez
 
 - React, Vue et Angular : informations de composants lorsqu’elles sont accessibles. Tailwind : indices basés sur les classes. La détection reste limitée en production.
 - Shadow DOM ouvert pris en charge ; contenu des iframes et pages protégées de Chrome exclus.
-- Traitement local, sans envoi à une IA ni historique. Fermer le panneau ou recharger la page efface la session.
+- Traitement local, sans envoi à une IA ni historique. Fermer le panneau ou recharger la page efface la session. Le navigateur garde seulement la langue choisie et un compteur de copies qui sert à proposer, une fois, de laisser un avis.
 - Le contenu copié provient de la page : vérifiez-le avant de le partager.
 
 ## Développer

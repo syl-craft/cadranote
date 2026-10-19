@@ -1,6 +1,8 @@
 import { metadataText, read } from "./read-metadata";
 import { unavailableInspection } from "./model";
 import type { ComponentInfo, Inspection } from "./model";
+import { UNNAMED_COMPONENT } from "../domain/inspection";
+import { t } from "../i18n/i18n";
 
 export async function requestInspection(chain: readonly string[]): Promise<Inspection> {
   if (typeof chrome === "undefined" || !chrome.runtime?.id) return unavailableInspection;
@@ -32,7 +34,8 @@ export function validateInspection(value: unknown): Inspection {
       const hierarchy = names
         .slice(0, 12)
         .map(metadataText)
-        .filter((name): name is string => name !== null);
+        .filter((name): name is string => name !== null)
+        .map((name) => (name === UNNAMED_COMPONENT ? t().unnamedVueComponent : name));
       if (hierarchy.length)
         components.push({
           framework: framework as ComponentInfo["framework"],
