@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.1
+
+### English
+
+- **Clearer name.** Cadranote is now called “Cadranote — Copy page elements for ChatGPT”.
+- **English store images.** The store listings show the interface in English.
+
+### Français
+
+- **Nom plus explicite.** Cadranote s’appelle désormais « Cadranote — Copier des éléments pour ChatGPT ».
+- **Images des stores en anglais.** Les fiches en anglais montrent l’interface en anglais.
+
 ## 1.2.0
 
 ### English

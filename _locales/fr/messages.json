@@ -1,5 +1,5 @@
 {
-  "extensionName": { "message": "Cadranote — Cibler pour une IA" },
+  "extensionName": { "message": "Cadranote — Copier des éléments pour ChatGPT" },
   "extensionDescription": {
     "message": "Sélectionnez un élément et copiez son sélecteur CSS, son chemin HTML et son contexte pour une IA."
   },

@@ -6,7 +6,7 @@ Textes et images à saisir à la création des fiches. Les images sont dans [`st
 
 | Champ | Valeur |
 | --- | --- |
-| Nom | `Cadranote — Cibler pour une IA` (repris du manifeste) |
+| Nom | `Cadranote — Copier des éléments pour ChatGPT` (repris du manifeste ; 45 caractères au plus, limite d’Edge) |
 | Éditeur / développeur | `syl-craft` |
 | E-mail de contact | `syl.craft.apps@gmail.com` |
 | Site web | `https://github.com/syl-craft/cadranote` |
@@ -46,7 +46,7 @@ Code source : https://github.com/syl-craft/cadranote
 
 ### Fiche en anglais
 
-Nom repris du manifeste : `Cadranote — Target for AI`.
+Nom repris du manifeste : `Cadranote — Copy page elements for ChatGPT`.
 
 Résumé :
 
@@ -84,9 +84,9 @@ Termes de recherche Edge : `CSS selector`, `AI`, `ChatGPT`, `inspector`, `HTML`,
 | --- | --- | --- | --- | --- |
 | Icône 128 × 128 | `icons/icon128.png` | oui | — | dans le ZIP |
 | Logo 300 × 300 | `docs/store/logo-300.png` | — | oui | — |
-| Captures 1280 × 800 | `docs/store/screenshot-*.png` | oui | oui | oui |
-| Petite vignette 440 × 280 | `docs/store/promo-small.png` | oui | oui | — |
-| Grande vignette 1400 × 560 | `docs/store/promo-marquee.png` | facultatif | facultatif | — |
+| Captures 1280 × 800 | `docs/store/screenshot-*.png`, en anglais `screenshot-*-en.png` | oui | oui | oui |
+| Petite vignette 440 × 280 | `docs/store/promo-small.png`, en anglais `promo-small-en.png` | oui | oui | — |
+| Grande vignette 1400 × 560 | `docs/store/promo-marquee.png`, en anglais `promo-marquee-en.png` | facultatif | facultatif | — |
 
 ## Chrome Web Store
 
