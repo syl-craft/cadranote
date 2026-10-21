@@ -6,9 +6,17 @@
 
 Sélectionnez des éléments sur une page et copiez leur contexte pour une IA : sélecteurs, HTML, demande et éléments de référence.
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/khmlkbonkmhahppkbpcgamcbjdjhlpmk?style=for-the-badge&logo=googlechrome&logoColor=white&label=Chrome%20Web%20Store&color=4285F4)](https://chromewebstore.google.com/detail/khmlkbonkmhahppkbpcgamcbjdjhlpmk)
+[![Firefox Add-ons](https://img.shields.io/amo/v/cadranote-cibler-pour-une-ia?style=for-the-badge&logo=firefoxbrowser&logoColor=white&label=Firefox%20Add-ons&color=FF7139)](https://addons.mozilla.org/firefox/addon/cadranote-cibler-pour-une-ia/)
+[![Microsoft Edge Add-ons](https://img.shields.io/badge/Edge%20Add--ons-available-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/fnkagnlaabojnkmfnpihcckcejhkaech)
+
 <img src="https://raw.githubusercontent.com/syl-craft/cadranote-media/main/videos/01-target-fr.gif" alt="Démonstration : Alt+C ouvre le panneau, le survol encadre les éléments, un clic sélectionne le bouton et affiche son sélecteur CSS unique" width="960">
 
 ## Installer
+
+Installez Cadranote depuis le store de votre navigateur : [Chrome](https://chromewebstore.google.com/detail/khmlkbonkmhahppkbpcgamcbjdjhlpmk), [Firefox](https://addons.mozilla.org/firefox/addon/cadranote-cibler-pour-une-ia/) ou [Edge](https://microsoftedge.microsoft.com/addons/detail/fnkagnlaabojnkmfnpihcckcejhkaech).
+
+### Compiler depuis les sources
 
 Avec Node.js 22 et Chrome :
 

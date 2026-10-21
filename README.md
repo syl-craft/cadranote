@@ -6,9 +6,17 @@ English · [Français](README.fr.md)
 
 Select elements on a web page and copy their context for an AI assistant: selectors, HTML, your request and reference elements.
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/khmlkbonkmhahppkbpcgamcbjdjhlpmk?style=for-the-badge&logo=googlechrome&logoColor=white&label=Chrome%20Web%20Store&color=4285F4)](https://chromewebstore.google.com/detail/khmlkbonkmhahppkbpcgamcbjdjhlpmk)
+[![Firefox Add-ons](https://img.shields.io/amo/v/cadranote-cibler-pour-une-ia?style=for-the-badge&logo=firefoxbrowser&logoColor=white&label=Firefox%20Add-ons&color=FF7139)](https://addons.mozilla.org/firefox/addon/cadranote-cibler-pour-une-ia/)
+[![Microsoft Edge Add-ons](https://img.shields.io/badge/Edge%20Add--ons-available-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/fnkagnlaabojnkmfnpihcckcejhkaech)
+
 <img src="https://raw.githubusercontent.com/syl-craft/cadranote-media/main/videos/01-target-en.gif" alt="Demo: Alt+C opens the panel, hovering outlines elements, a click selects the button and shows its unique CSS selector" width="960">
 
 ## Install
+
+Install Cadranote from your browser's store: [Chrome](https://chromewebstore.google.com/detail/khmlkbonkmhahppkbpcgamcbjdjhlpmk), [Firefox](https://addons.mozilla.org/firefox/addon/cadranote-cibler-pour-une-ia/) or [Edge](https://microsoftedge.microsoft.com/addons/detail/fnkagnlaabojnkmfnpihcckcejhkaech).
+
+### Build from source
 
 With Node.js 22 and Chrome:
 
